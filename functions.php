@@ -524,3 +524,91 @@ function twentythirteen_customize_preview_js() {
 	wp_enqueue_script( 'twentythirteen-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130226', true );
 }
 add_action( 'customize_preview_init', 'twentythirteen_customize_preview_js' );
+
+//     __  ___                        __   
+//    /  |/  /_  __   _________  ____/ /__ 
+//   / /|_/ / / / /  / ___/ __ \/ __  / _ \
+//  / /  / / /_/ /  / /__/ /_/ / /_/ /  __/
+// /_/  /_/\__, /   \___/\____/\__,_/\___/ 
+//        /____/                       
+
+// ==============================================================
+// Constats
+// ==============================================================
+define('TDU', get_bloginfo('template_url'));
+// ==============================================================
+// Requre
+// ==============================================================    
+require_once 'includes/__.php';
+
+// ==============================================================
+// Actions & Filters
+// ==============================================================
+add_action('wp_enqueue_scripts', 'customScriptsAndStyles');
+
+// ==============================================================
+// GC Framework
+// ==============================================================
+$ccollection_global_settings = new Controls\ControlsCollection(
+	array(		
+		new Controls\Text(
+			'Pinterest URL', 
+			array('default-value' => 'http://www.pinterest.com/'), 
+			array('placeholder' => 'Enter your pinterest URL')
+		),
+		new Controls\Text(
+			'Facebook URL', 
+			array('default-value' => 'http://www.facebook.com/whitehouse'), 
+			array('placeholder' => 'Enter your facebook page URL')
+		),
+		new Controls\Textarea(
+			'Address', 
+			array('default-value' => 'PO Box 355, Osborne Park, Western Australia 6917'),
+			array('placeholder' => 'Enter your address')
+		),
+		new Controls\Textarea(
+			'Phone text',
+			array('default-value' => 'Phone 08 9443 1300 or 0413 778 141'),
+			array('placeholder' => 'Enter you phone text')
+		)
+	)
+);
+
+$section_global_settings = new Admin\Section(
+	'Global settings', 
+	array(
+		'prefix'   => 'gs_',
+		'tab_icon' => 'fa-cog'
+	), 
+	$ccollection_global_settings
+);
+
+$theme_settings = new Admin\Page('Theme settings', array('parent_page' => 'themes.php'), array($section_global_settings));
+
+/**
+ * Custom scipts and styles
+ */
+function customScriptsAndStyles()
+{
+	wp_enqueue_script('css_browser_selector', TDU.'/js/css_browser_selector.js');
+	wp_enqueue_script('jquery-min', TDU.'/js/jquery.min.js');
+	wp_enqueue_script('formstyler', TDU.'/js/jquery.formstyler.js', array('jquery'));
+}
+
+/**
+ * Get options
+ * @param  array  $keys --- option keys
+ * @return array       --- options
+ */
+function getOptions($keys = array())
+{
+	$options = array();
+	if(count($keys))
+	{
+		foreach ($keys as $el) 
+		{
+			$options[$el] = (string) get_option($el);
+		}
+	}
+	return $options;
+}

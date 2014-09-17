@@ -8,14 +8,7 @@ class Select extends Control{
 	//  / / / / / /  __/ /_/ / / / /_/ / /_/ (__  ) 
 	// /_/ /_/ /_/\___/\__/_/ /_/\____/\__,_/____/  
 	public function __construct($title, $meta_hidden = array(), $meta_visible = array())
-	{	
-		$meta_hidden = array_merge(
-			array(				
-				'description' => '',				
-				'values'      => ''	
-			), 
-			$meta_hidden
-		);
+	{			
 		parent::__construct($title, $meta_hidden, $meta_visible);							
 	}
 

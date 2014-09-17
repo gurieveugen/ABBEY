@@ -1,14 +1,4 @@
-<?php
-/**
- * The Header for our theme.
- *
- * Displays all of the <head> section and everything up till <div id="main">
- *
- * @package WordPress
- * @subpackage Twenty_Thirteen
- * @since Twenty Thirteen 1.0
- */
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
 <![endif]-->
@@ -29,9 +19,6 @@
 	<![endif]-->
 	<?php wp_head(); ?>
 <!--[if IE]><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/ie.css" type="text/css" media="screen"><![endif]-->
-<script charset="utf-8" type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/css_browser_selector.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.min.js"></script>
-<script src="<?php echo get_template_directory_uri(); ?>/js/jquery.formstyler.js"></script>
 <script>
 	(function($) {
 	$(function() {

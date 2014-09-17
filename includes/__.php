@@ -1,7 +1,7 @@
 <?php
 
 
-define('GCLIB_URL', get_bloginfo('template_url').'/includes/');
+define('GCLIB_URL', get_bloginfo('template_url' ).'/includes/');
 define('GCLIB_DIR', plugin_dir_path(__FILE__));
 
 class __{
@@ -31,9 +31,8 @@ class __{
 	 */
 	public static function autoloader($class) 
 	{			
-		$path = sprintf('%s%s.php', GCLIB_DIR, strtolower($class));	
+		$path = sprintf('%s%s.php', GCLIB_DIR, $class);	
 		$path = str_replace('\\', '/', $path);	
-		
 		if (file_exists($path))
 		{
 			require_once $path;
@@ -113,6 +112,58 @@ class __{
 		$id    = $wpdb->get_var($query);
 		return intval($id);
 	}
+
+	/**
+	 * Get thumbnail url
+	 * @param  integer $id  --- post id
+	 * @param  string $size --- image seize. Default: full
+	 * @return string       --- URL
+	 */
+	public static function getThumbnailURL($id, $size = 'full')
+	{
+		if(!has_post_thumbnail($id)) return false;
+		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($id), $size);
+		return $thumb['0'];
+	}
+
+	/**
+	 * Get contents 
+	 * @param  string $url
+	 * @return string
+	 */
+	public static function fileGetContentsCurl($url) 
+	{
+	    $ch = curl_init();
+
+	    curl_setopt($ch, CURLOPT_HEADER, 0);
+	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	    curl_setopt($ch, CURLOPT_URL, $url);
+
+	    $data = curl_exec($ch);
+	    curl_close($ch);
+
+	    return $data;
+	}
+
+	/**
+	 * Cut text to a certain length
+	 * EXAMPLE __::cutText('Hellow world!', 8); 
+	 * Before: Hellow world!
+	 * After: Hellow...
+	 * @param  string $str --- string to cut
+	 * @param  int $maxLen --- count symbols
+	 * @return string      --- cutted string
+	 */
+	public static function cutText($str, $maxLen)
+	{
+		if (mb_strlen($str) > $maxLen)
+		{
+			preg_match('/^.{0,'.$maxLen.'} .*?/ui', $str, $match);
+			return $match[0].'...';
+		}
+		return $str;
+	}
+
 }
 
 // =========================================================
