@@ -384,6 +384,57 @@ div.phone-header
 	color:#3c3c3e;
 }
 
+div.phone-header-home
+{
+  padding:50px 55px 0px 0px;
+  float:right;
+	font-family:'dinregularwebfont';
+	font-size:26px;
+	line-height:31px;
+	color:#3c3c3e;
+}
+
+div.phone-header-home p
+{
+  padding:0px 0px 0px 0px;
+	float:left;
+}
+
+ul.share-header
+{
+  width:60px;
+	margin:0px;
+	padding:1px 0px 0px 12px;
+	float:right;
+	list-style:none;
+}
+
+ul.share-header li
+{
+  padding:0px 0px 0px 5px;
+	float:left;
+}
+
+ul.share-header li a
+{
+  width:25px;
+	height:25px;
+	display:block;	
+	text-indent:-9999em;
+	position:relative;
+	overflow:hidden;
+}
+
+ul.share-header li.pinterest a
+{
+  background:0px 0px url(images/sprite.png) no-repeat;
+}
+
+ul.share-header li.facebook a
+{
+  background:-26px 0px url(images/sprite.png) no-repeat;
+}
+
 div.bottom-header
 {
   height:43px;
@@ -392,6 +443,7 @@ div.bottom-header
 	position:absolute;
 	bottom:0px;
 	right:16px;
+	z-index:10;
 }
 
 div.bottom-header:after
@@ -420,7 +472,7 @@ div.btn-freequote
 	line-height:20px;
 	color:#FFFFFF;
 	position:relative;
-	z-index:2;
+	z-index:5;
 }
 
 div.btn-freequote:before,
@@ -503,20 +555,20 @@ nav.main-menu > ul
 
 nav.main-menu > ul > li
 {
-  padding:0px 9px 0px 9px;
+  padding:0px 0px 0px 0px;
 	float:left;
 	position:relative;
 }
 
 nav.main-menu > ul > li:first-child
 {
-  padding-left:30px;
+  padding-left:21px;
 }
 
 nav.main-menu > ul > li > a
 {
-  height:25px;
-  padding:13px 0px 0px 0px;
+  height:27px;
+  padding:13px 9px 0px 9px;
 	display:block;
 	color:#ffffff;
 	text-decoration:none;
@@ -528,6 +580,7 @@ nav.main-menu > ul > li.current_page_item > a,
 nav.main-menu > ul > li.current_page_parent > a,
 nav.main-menu > ul > li.current_page_ancestor > a
 {
+  background:#ec6a20;
   color:#FFFFFF;
 	text-decoration:none;
 }
@@ -678,6 +731,30 @@ div.tophome-page
 	text-transform:uppercase;
 	color:#ffffff;
 	position:relative;
+}
+
+div.tophome-page aside
+{
+  width:100%;
+	height:328px;
+	position:relative;
+	overflow:hidden;
+}
+
+div.tophome-page ul
+{
+  margin:0px;
+	padding:0px;
+	list-style:none;
+}
+
+div.tophome-page li
+{
+  width:100%;
+  height:328px;
+	position:absolute;
+	top:0px;
+	left:0px;
 }
 
 div.tophome-page figure
@@ -1361,13 +1438,21 @@ div.right-product
 
 div.padding-top91
 {
+  min-height:704px;
   padding-top:91px;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
 	position:relative;
 }
 
 div.padding-top278
 {
+  min-height:704px;
   padding-top:278px;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
 	position:relative;
 }
 
@@ -1542,30 +1627,28 @@ article.full-post a.btn-enquiry:before
 ul.smallpost-list
 {
   margin:0px;
-	padding:0px 0px 8px 0px;
+	padding:0px 0px 7px 0px;
 	list-style:none;
 }
 
 ul.smallpost-list li article
 {
-  height:165px;
   margin:0px 33px 0px 26px;
-  padding:17px 0px 0px 0px;
+  padding:15px 0px 15px 0px;
 	border-top:1px dotted #a3a3a3;
 	position:relative;
 }
 
 ul.smallpost-list li:first-child article
 {
-  padding-top:7px;
+  padding-top:5px;
   border-top:none;
 }
 
 ul.smallpost-list figure.img
 {
   width:135px;
-	height:133px;
-	padding:3px 0px 0px 0px;
+	padding:3px 0px 3px 0px;
 	float:left;
 	position:relative;
 	overflow:hidden;
@@ -1606,7 +1689,8 @@ ul.smallpost-list h2 a
 
 ul.smallpost-list p
 {
-  height:106px;
+	min-height:77px;
+	max-height:106px;
   padding:0px 0px 0px 0px;
 	position:relative;
 	overflow:hidden;
@@ -1657,11 +1741,17 @@ ul.smallpost-list footer figure img
 
 ul.logos-bottom
 {
-  margin:63px 0px 0px 0px;
+  width:100%;
+  margin:0px 0px 0px 0px;
 	padding:21px 11px 10px 21px;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
 	list-style:none;
 	background:#ffffff;
-	position:relative;
+	position:absolute;
+	bottom:0px;
+	left:0px;
 }
 
 ul.logos-bottom li

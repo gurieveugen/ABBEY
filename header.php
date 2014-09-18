@@ -1,3 +1,7 @@
+<?php
+$options = getOptions(array('gs_phone_text'));
+extract($options);
+?>
 <!DOCTYPE html>
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
@@ -33,9 +37,19 @@
   <header id="header">
     <div class="center-box cf">
 		  <h1 class="logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-			<div class="phone-header">Phone 08 9443 1300 or 0413 778 141</div>
+			<?php if(is_front_page()) { ?>
+			<div class="phone-header-home">
+			  <p><?php echo $gs_phone_text; ?></p>
+			  <ul class="share-header">
+					<li class="pinterest"><a href="<?php echo $gs_pinterest_url; ?>">pinterest</a></li>
+			    <li class="facebook"><a href="<?php echo $gs_facebook_url; ?>">facebook</a></li>
+				</ul>
+			</div>
+			<?php } else { ?>			
+			<div class="phone-header"><?php echo $gs_phone_text; ?></div>			
+			<?php } ?>
 			<div class="bottom-header">
-			  <div class="btn-freequote"><a href="#">Request a FREE Quote</a></div>
+			  <div class="btn-freequote"><a href="/contact">Request a FREE Quote</a></div>
 				<div class="searchform-box">
 				  <?php get_search_form(); ?>
 				</div>

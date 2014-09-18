@@ -540,14 +540,24 @@ define('TDU', get_bloginfo('template_url'));
 // Requre
 // ==============================================================    
 require_once 'includes/__.php';
+require_once 'includes/widget_promotion_box.php';
+require_once 'includes/widget_client_testimonials.php';
 
 // ==============================================================
 // Actions & Filters
 // ==============================================================
 add_action('wp_enqueue_scripts', 'customScriptsAndStyles');
+add_action('widgets_init', 'widgetsInit');
+
+//    ____________   __________  ___    __  __________       ______  ____  __ __
+//   / ____/ ____/  / ____/ __ \/   |  /  |/  / ____/ |     / / __ \/ __ \/ //_/
+//  / / __/ /      / /_  / /_/ / /| | / /|_/ / __/  | | /| / / / / / /_/ / ,<   
+// / /_/ / /___   / __/ / _, _/ ___ |/ /  / / /___  | |/ |/ / /_/ / _, _/ /| |  
+// \____/\____/  /_/   /_/ |_/_/  |_/_/  /_/_____/  |__/|__/\____/_/ |_/_/ |_|  
+                                                                             
 
 // ==============================================================
-// GC Framework
+// Controls collections
 // ==============================================================
 $ccollection_global_settings = new Controls\ControlsCollection(
 	array(		
@@ -574,6 +584,39 @@ $ccollection_global_settings = new Controls\ControlsCollection(
 	)
 );
 
+$ccollection_main_slider = new Controls\ControlsCollection(
+	array(
+		new Controls\Text(
+			'Slider delay', 
+			array(
+				'default-value' => '5',
+				'description'   => 'Delay in seconds'
+			), 
+			array('placeholder' => 'Delay')
+		),
+		new Controls\Text(
+			'Count slides', 
+			array('default-value' => '5'), 
+			array('placeholder' => 'Count')
+		)
+	)
+);
+
+$ccollection_testimonial = new Controls\ControlsCollection(
+	array(
+		new Controls\Text(
+			'Rating',
+			array(
+				'default-value' => '0',
+				'description' => 'Testimonial rating'
+			),
+			array('placeholder' => 'Testimonial rating')			
+		)
+	)
+);
+// ==============================================================
+// Sections
+// ==============================================================
 $section_global_settings = new Admin\Section(
 	'Global settings', 
 	array(
@@ -582,8 +625,75 @@ $section_global_settings = new Admin\Section(
 	), 
 	$ccollection_global_settings
 );
+$section_main_slider = new Admin\Section(
+	'Main slider options', 
+	array(
+		'prefix' => 'mso_',
+		'tab_icon' => 'fa-picture-o'
+	), 
+	$ccollection_main_slider
+);
 
-$theme_settings = new Admin\Page('Theme settings', array('parent_page' => 'themes.php'), array($section_global_settings));
+// ==============================================================
+// Pages & Post types
+// ==============================================================
+$theme_settings = new Admin\Page(
+	'Theme settings', 
+	array('parent_page' => 'themes.php'), 
+	array(
+		$section_global_settings,
+		$section_main_slider
+	)
+);
+
+$post_type_slider = new Admin\PostType(
+	'Slider', 
+	array(
+		'icon_code' => 'f03e', 
+		'supports' => array('title', 'editor', 'thumbnail', 'excerpt')
+	)
+);
+
+$post_type_testimonial = new Admin\PostType(
+	'Testimonial',
+	array(
+		'icon_code' => 'f086', 
+		'supports' => array('title', 'editor', 'thumbnail', 'excerpt')	
+	)
+);
+
+$post_type_product = new Admin\PostType(
+	'Product',
+	array(
+		'icon_code'  => 'f07a', 
+		'supports'   => array('title', 'editor', 'thumbnail', 'excerpt'),
+		'taxonomies' => array('product_cat') 	
+	)
+);
+
+// ==============================================================
+// Custom Metaboxes
+// ==============================================================
+$meta_box_testimonial = new Admin\MetaBox(
+	'Additional testimonial options', 
+	array(
+		'post_type' => 'testimonial', 
+		'prefix' => 'ato_'
+	), 
+	$ccollection_testimonial
+);
+
+// ==============================================================
+// Custom Taxonomies
+// ==============================================================
+$taxonomy_product_cat = new Admin\Taxonomy(
+	'Product category',
+	array(
+		'post_type' => 'product',
+		'plural'    => 'Product categories',
+		'name'      => 'product_cat'
+	)
+);
 
 /**
  * Custom scipts and styles
@@ -593,6 +703,14 @@ function customScriptsAndStyles()
 	wp_enqueue_script('css_browser_selector', TDU.'/js/css_browser_selector.js');
 	wp_enqueue_script('jquery-min', TDU.'/js/jquery.min.js');
 	wp_enqueue_script('formstyler', TDU.'/js/jquery.formstyler.js', array('jquery'));
+	wp_enqueue_script('main', TDU.'/js/main.js', array('jquery'));
+	wp_enqueue_script('slider', TDU.'/js/jquery.flexslider.js', array('jquery'));
+
+	wp_localize_script(
+		'slider', 
+		'l10n_slider',  
+		getOptions(array('mso_slider_delay'))
+	);
 }
 
 /**
@@ -611,4 +729,24 @@ function getOptions($keys = array())
 		}
 	}
 	return $options;
+}
+
+/**
+ * Register custom sidebar
+ */
+function widgetsInit()
+{
+	register_sidebar(array(
+			'name'          => __('Front page Sidebar', 'ABBEY'),
+			'id'            => 'front-page-sidebar',
+			'description'   => __('Sidebar for front page posts', 'ABBEY'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>'
+		) 
+	);
+
+	register_widget('PromotionBox');
+	register_widget('ClientTestimonials');
 }
