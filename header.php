@@ -1,5 +1,5 @@
 <?php
-$options = getOptions(array('gs_phone_text'));
+$options = __::getOptions(array('gs_phone_text'));
 extract($options);
 ?>
 <!DOCTYPE html>
@@ -26,7 +26,7 @@ extract($options);
 <script>
 	(function($) {
 	$(function() {
-		$('.list-box select').styler();
+		$('.contact-form input').styler();
 	})
 	})(jQuery)
 </script>

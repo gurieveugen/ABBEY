@@ -96,7 +96,7 @@ class Taxonomy extends BaseWithControls{
             $controls = $this->controls->getControls();
             foreach ($controls as $ctrl)
             {
-                $value = get_option(sprintf('tax_%s_%s', $term->term_id, $ctrl->getName()));
+                $value = get_option($this->getOptionName($term->term_id, $ctrl->getName()));
 
                 $tmp                           = clone $ctrl;
                 $title                         = $tmp->getTitleHTML();
@@ -121,8 +121,10 @@ class Taxonomy extends BaseWithControls{
             $controls = $this->controls->getControls();
             foreach ($controls as $ctrl)
             {
-                if(isset($_POST[$ctrl->getName()])) update_option(sprintf('tax_%s_%s', $term_id, $ctrl->getName()), $_POST[$ctrl->getName()]);
-                else delete_option(sprintf('tax_%s_%s', $term_id, $ctrl->getName()));
+                if(isset($_POST[$ctrl->getName()])) 
+                    update_option($this->getOptionName($term_id, $ctrl->getName()), $_POST[$ctrl->getName()]);
+                else 
+                    delete_option($this->getOptionName($term_id, $ctrl->getName()));
             }    
         } 
     }
@@ -140,7 +142,8 @@ class Taxonomy extends BaseWithControls{
                 $controls = $this->controls->getControls();
                 foreach ($controls as $ctrl)
                 {
-                    if(get_option(sprintf('tax_%s_%s', $term_id, $ctrl->getName()))) delete_option(sprintf('tax_%s_%s', $term_id, $ctrl->getName()));                    
+                    if(get_option($this->getOptionName($term_id, $ctrl->getName()))) 
+                        delete_option($this->getOptionName($term_id, $ctrl->getName()));                    
                 }    
             } 
         }
@@ -189,5 +192,16 @@ class Taxonomy extends BaseWithControls{
         $var = ob_get_contents();
         ob_end_clean();
         return $var;
+    }
+
+    /**
+     * Format options name
+     * @param  integer $term_id --- term id
+     * @param  string $name     --- control name
+     * @return string           --- formated name to get_option
+     */
+    public static function getOptionName($term_id, $name)
+    {
+        return sprintf('tax_%s_%s', intval($term_id), $name);
     }
 }

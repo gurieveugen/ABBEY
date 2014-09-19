@@ -171,14 +171,10 @@ a:hover
 .jq-checkbox,
 .jq-radio 
 {
-	width:14px;
-	height:14px;
-	margin:3px 6px 0px 0px;
-	border:1px solid #c0c0c0;
-	background:#f9f9f9;
-	-webkit-border-radius:2px;
-  -moz-border-radius:2px;
-  border-radius:2px;
+	width:13px;
+	height:13px;
+	margin:2px 5px 0px 0px;
+	background:-35px -26px url(images/sprite.png) no-repeat;
 	cursor:pointer;
 	position:relative;
 	float:left;
@@ -188,11 +184,11 @@ a:hover
 .jq-checkbox.checked span,
 .jq-radio.checked span 
 {
-	width:8px;
-	height:8px;
-	margin:-4px 0px 0px -4px;
+	width:5px;
+	height:5px;
+	margin:-3px 0px 0px -3px;
 	display:block;
-	background:#9f051c;
+	background:#000000;
 	position:absolute;
 	top:50%;
 	left:50%;
@@ -1126,10 +1122,9 @@ div.topdefault-page
   height:199px;
 	background:#ec6a20;
 	font-family:'dinregularwebfont';
-	font-size:26px;
-	line-height:31px;
+	font-size:22px;
+	line-height:27px;
 	text-shadow:-1px -1px 3px #9b3f0c;
-	text-transform:uppercase;
 	color:#ffffff;
 	position:relative;
 }
@@ -1196,6 +1191,15 @@ div.topdefault-page h3
 	text-shadow:-1px -1px 3px #9b3f0c;
 	text-transform:uppercase;
 	color:#ffffff;
+}
+
+div.topdefault-page p
+{
+  height:199px;
+	margin:0px -206px 0px 0px;
+	padding:0px;
+	display:table-cell;
+	vertical-align:middle;
 }
 
 article.post-about
@@ -1330,6 +1334,357 @@ div.widget-video a.more
 	text-transform:uppercase;
 }
 /* ------- end about page ------- */
+
+
+/* ------- testimonials page ------- */
+ul.testimonials-list
+{
+  margin:0px;
+	padding:32px 0px 32px 0px;
+	list-style:none;
+	font-size:16px;
+	line-height:18px;
+	color:#3c3c3e;
+}
+
+ul.testimonials-list > li
+{
+  padding:18px 0px 14px 0px;
+	border-top:1px solid #c9ccc6;
+}
+
+ul.testimonials-list > li:first-child
+{
+  border-top:none;
+}
+
+ul.testimonials-list figure
+{
+  width:39px;
+	padding:0px 12px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list img
+{
+  display:block;
+}
+
+ul.testimonials-list div.name
+{
+  width:137px;
+	padding:0px 12px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list ul.star-list
+{
+  margin:0px;
+	padding:1px 0px 4px 0px;
+	list-style:none;
+}
+
+ul.testimonials-list ul.star-list li
+{
+  width:13px;
+  padding:0px 2px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list h3
+{
+  margin:0px;
+	padding:0px 0px 0px 5px;
+	font-family:'dinboldwebfont';
+	font-size:17px;
+	line-height:17px;
+	color:#383837;
+}
+
+ul.testimonials-list div.txt
+{
+  width:740px;
+	padding:16px 0px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list p
+{
+  padding:0px 0px 0px 0px;
+}
+/* ------- end testimonials page ------- */
+
+
+/* ------- contact page ------- */
+div.contact-page
+{
+  padding:13px 0px 23px 0px;
+}
+
+div.contact-page div.space
+{
+  width:20px;
+	display:table-cell;
+	vertical-align:top;
+}
+
+aside.sidebar-contact
+{
+  width:251px;
+	padding:48px 28px 27px 36px;
+	display:table-cell;
+	vertical-align:top;
+	background:#ffffff;
+	font-family:'dinregularwebfont';
+	font-size:17px;
+	line-height:21px;
+	color:#58585a;
+}
+
+aside.sidebar-contact p
+{
+  padding:0px 0px 0px 0px;
+}
+
+aside.sidebar-contact strong
+{
+  font-family:'dinboldwebfont';
+}
+
+aside.sidebar-contact div.widget-mobileshowroom
+{
+  width:auto;
+	padding:0px 0px 18px 6px;
+	float:none;
+	font-family:'dinlightwebfont';
+	font-size:19px;
+	line-height:19px;
+	color:#3c3c3e;
+	position:relative;
+}
+
+aside.sidebar-contact div.widget-mobileshowroom h3
+{
+  width:auto;
+	margin:0px 0px 22px 3px;
+	position:relative;
+}
+
+div.right-contact
+{
+  width:495px;
+	padding:41px 84px 43px 82px;
+	display:table-cell;
+	vertical-align:top;
+	background:#ffffff;
+}
+
+article.contact-post
+{
+	position:relative;
+}
+
+article.contact-post h2
+{
+  margin:0px;
+	padding:0px 0px 21px 0px;
+	font-family:'dinlightwebfont';
+	font-size:31px;
+	line-height:31px;
+	text-transform:uppercase;
+	letter-spacing:-2px;
+	color:#3c3c3e;
+}
+
+article.contact-post h2 strong
+{
+  font-family:'dinboldwebfont';
+}
+
+div.contact-form
+{
+  font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	line-height:16px;
+	color:#303031;
+}
+
+div.contact-form div.line-form
+{
+  padding:14px 0px 14px 0px;
+}
+
+div.contact-form div.line-checkbox
+{
+  padding:21px 0px 5px 0px;
+}
+
+div.contact-form p
+{
+  padding:6px 0px 0px 0px;
+}
+
+div.contact-form div.line-form p
+{
+  width:153px;
+  padding:0px 0px 0px 18px;
+	float:left;
+}
+
+div.contact-form div.line-form p:first-child
+{
+  padding-left:0px;
+}
+
+div.contact-form label
+{
+  padding:0px 0px 6px 0px;
+	display:block;
+}
+
+div.contact-form span.wpcf7-form-control-wrap
+{
+  display:block;
+	float:left;
+	position:relative;
+}
+
+/* div.contact-form p span.wpcf7-form-control-wrap:before,
+div.contact-form p span.wpcf7-form-control-wrap:after
+{
+	height:100%;
+	display:block;
+	content:"";
+	position:absolute;
+	top:4px;
+	z-index:2;
+}
+
+div.contact-form p span.wpcf7-form-control-wrap:before
+{
+  width:8px;
+  background:0px 0px url(images/bg_img_14.gif) repeat-y;
+	left:0px;
+}
+
+div.contact-form p span.wpcf7-form-control-wrap:after
+{
+  width:6px;
+  background:0px 0px url(images/bg_img_12.gif) repeat-y;
+	right:0px;
+} */
+
+div.contact-form span input,
+div.contact-form textarea
+{
+  width:133px;
+	height:17px;
+	padding:3px 10px 3px 10px;
+	display:block;
+	border:none;
+	background:#FFFFFF;
+	-moz-box-shadow:inset 1px 1px 5px #c1bfbf;
+  -webkit-box-shadow:inset 1px 1px 5px #c1bfbf;
+  box-shadow:inset 1px 1px 5px #c1bfbf;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	line-height:17px;
+	color:#303031;
+	position:relative;
+	z-index:1;
+}
+
+div.contact-form span.wpcf7-not-valid-tip
+{
+  width:100%;
+	height:100%;
+	padding:3px 5px 3px 5px;
+	display:block;
+	border:1px solid #FF0000;
+	background:#FFFFFF;
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:10px;
+	line-height:17px;
+	overflow:hidden;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:10;
+}
+
+div.contact-form span input.wpcf7-captchar
+{
+  width:177px;
+	height:40px;
+	float:left;
+	line-height:14px;
+}
+
+div.contact-form textarea
+{
+  width:475px;
+	height:77px;
+	line-height:14px;
+}
+
+div.contact-form span.wpcf7-list-item
+{
+  padding:0px 20px 0px 0px;
+	display:block;
+  float:left;
+	position:relative;
+}
+
+div.contact-form span.wpcf7-list-item-label
+{
+  float:right;
+}
+
+div.contact-form img.wpcf7-captchac
+{
+  margin:0px 27px 0px 0px;
+	display:block;
+	float:left;
+	position:relative;
+}
+
+div.contact-form div.submit
+{
+  padding:9px 0px 10px 0px;
+	font-size:11px;
+	position:relative;
+}
+
+div.contact-form input.wpcf7-submit
+{
+  height:25px;
+	margin:0px 13px 0px 0px;
+	padding:0px 20px 0px 20px;
+	float:left;
+	border:none;
+	background:#f4830e;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	font-weight:bolder;
+	line-height:25px;
+	color:#FFFFFF;
+	cursor:pointer;
+}
+
+div.contact-form div.submit span
+{
+  float:left;
+	line-height:25px;
+}
+
+div.contact-form img.ajax-loader
+{
+  display:none;
+}
+/* ------- end contact page ------- */
 
 
 /* ------- page ------- */

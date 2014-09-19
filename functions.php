@@ -542,12 +542,19 @@ define('TDU', get_bloginfo('template_url'));
 require_once 'includes/__.php';
 require_once 'includes/widget_promotion_box.php';
 require_once 'includes/widget_client_testimonials.php';
+require_once 'includes/widget_product_categories.php';
 
 // ==============================================================
 // Actions & Filters
 // ==============================================================
 add_action('wp_enqueue_scripts', 'customScriptsAndStyles');
 add_action('widgets_init', 'widgetsInit');
+// ==============================================================
+// Image sizes
+// ==============================================================
+add_image_size('product-widget', 325, 108, true);
+add_image_size('product-thumbnail', 135, 119, true);
+add_image_size('logo', 90, 30, true);
 
 //    ____________   __________  ___    __  __________       ______  ____  __ __
 //   / ____/ ____/  / ____/ __ \/   |  /  |/  / ____/ |     / / __ \/ __ \/ //_/
@@ -611,6 +618,14 @@ $ccollection_testimonial = new Controls\ControlsCollection(
 				'description' => 'Testimonial rating'
 			),
 			array('placeholder' => 'Testimonial rating')			
+		)
+	)
+);
+
+$ccolection_product_cat = new Controls\ControlsCollection(
+	array(
+		new Controls\Media(
+			'Background image'
 		)
 	)
 );
@@ -692,7 +707,8 @@ $taxonomy_product_cat = new Admin\Taxonomy(
 		'post_type' => 'product',
 		'plural'    => 'Product categories',
 		'name'      => 'product_cat'
-	)
+	),
+	$ccolection_product_cat
 );
 
 /**
@@ -709,26 +725,8 @@ function customScriptsAndStyles()
 	wp_localize_script(
 		'slider', 
 		'l10n_slider',  
-		getOptions(array('mso_slider_delay'))
+		__::getOptions(array('mso_slider_delay'))
 	);
-}
-
-/**
- * Get options
- * @param  array  $keys --- option keys
- * @return array       --- options
- */
-function getOptions($keys = array())
-{
-	$options = array();
-	if(count($keys))
-	{
-		foreach ($keys as $el) 
-		{
-			$options[$el] = (string) get_option($el);
-		}
-	}
-	return $options;
 }
 
 /**
@@ -749,4 +747,5 @@ function widgetsInit()
 
 	register_widget('PromotionBox');
 	register_widget('ClientTestimonials');
+	register_widget('ProductCategories');
 }

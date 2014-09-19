@@ -1,5 +1,5 @@
 <?php
-$options = getOptions(
+$options = __::getOptions(
 	array(
 		'gs_pinterest_url',
 		'gs_facebook_url',

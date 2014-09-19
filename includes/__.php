@@ -164,6 +164,24 @@ class __{
 		return $str;
 	}
 
+	/**
+	 * Get options
+	 * @param  array  $keys --- option keys
+	 * @return array        --- options
+	 */
+	public static function getOptions($keys = array())
+	{
+		$options = array();
+		if(count($keys))
+		{
+			foreach ($keys as $el) 
+			{
+				$options[$el] = (string) get_option($el);
+			}
+		}
+		return $options;
+	}
+
 }
 
 // =========================================================
