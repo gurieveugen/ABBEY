@@ -28,10 +28,11 @@ class Media extends Control{
 			array(
 				'show_title'       => false,
 				'show_description' => false				
-			)
+			),
+			array('id' => sprintf('%s-input', $this->getName()))
 		);
 
-		$button  = '<button type="button" class="button button-upload" onclick="uploadMedia(event, this)">Upload</button>';		
+		$button  = '<button type="button" data-input="'.$this->getName().'-input" class="button button-upload" onclick="uploadMedia(event, this)">Upload</button>';		
 		$control = sprintf('<div class="control-media">%s</div>', $text->getHTML($value).$button.$this->getScreenshot($value));
 		
 		return $this->getTitleHTML().$control.$this->getDescriptionHTML();

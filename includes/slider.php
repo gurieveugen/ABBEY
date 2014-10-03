@@ -1,92 +1,90 @@
 <?php
 
-abstract class Slider{
-	//                                       __  _          
-	//     ____  _________  ____  ___  _____/ /_(_)__  _____
-	//    / __ \/ ___/ __ \/ __ \/ _ \/ ___/ __/ / _ \/ ___/
-	//   / /_/ / /  / /_/ / /_/ /  __/ /  / /_/ /  __(__  ) 
-	//  / .___/_/   \____/ .___/\___/_/   \__/_/\___/____/  
-	// /_/              /_/                                 
-	protected $args; 
-	protected $slider_class; 
+class Slider{
 
-	//                     __ __              __    
+	//                    __  __              __    
 	//    ____ ___  ___  / /_/ /_  ____  ____/ /____
 	//   / __ `__ \/ _ \/ __/ __ \/ __ \/ __  / ___/
 	//  / / / / / /  __/ /_/ / / / /_/ / /_/ (__  ) 
 	// /_/ /_/ /_/\___/\__/_/ /_/\____/\__,_/____/  
-	public function __construct($args, $slider_class = 'slider-home cf')
-	{
-		$this->slider_class = $slider_class;
-		$this->args         = array_merge($this->args, $args);
-	}          
 
 	/**
-	 * Get slider HTML
-	 * @return string --- HTML code
+	 * Get slidet HTML
+	 * @param  array  $args --- query arguments
+	 * @return string       --- HTML code
 	 */
-	public function getHTML()
+	public function getHTML($args = array())
 	{
-		$slides = $this->getSlides();
+		$defaults = array(
+			'posts_per_page'   => 5,
+			'offset'           => 0,
+			'category'         => '',
+			'orderby'          => 'post_date',
+			'order'            => 'DESC',
+			'include'          => '',
+			'exclude'          => '',
+			'meta_key'         => '',
+			'meta_value'       => '',
+			'post_type'        => 'slider',
+			'post_mime_type'   => '',
+			'post_parent'      => '',
+			'post_status'      => 'publish',
+			'suppress_filters' => true 
+		);
+
+		$args   = array_merge($defaults, $args);
+		$slides = get_posts($args);
+		$res    = array();
 		if(count($slides))
 		{
 			foreach ($slides as &$slide) 
 			{
-				$html[] = $this->wrapSlide($slide);
+				$res[] = $this->wrapSlide($slide);
 			}
-			return $this->wrapSlider(implode('', $html));
+			return $this->wrapSlider(implode('', $res));
 		}
-		return $this->noSlideHTML();
-	}     
+		return '';
+	}                                        
 
-	/**
-	 * Wrap slides to HTML
-	 * @param  string $slides --- slides HTML
-	 * @return string         --- HTML code
-	 */
 	private function wrapSlider($slides)
 	{
 		ob_start();
-		?> 
-	    <div class="<?php echo $this->slider_class; ?>">
+		?>
+		<div class="tophome-page">
 			<aside>
-				<ul class="slides">					
-					<?php
-					echo $slides;
-					?>
+				<ul class="slides">
+					<?php echo $slides; ?>
 				</ul>
-			</aside>
-				
-			<nav>
-				<a href="prev" onclick="actionSlide(event, this);" class="prev">prev</a>
-				<a href="next" onclick="actionSlide(event, this);" class="next">next</a>
-			</nav>
+			</aside>			
 		</div>
 		<?php
 
-		$var = ob_get_contents();
+	    $var = ob_get_contents();
 	    ob_end_clean();
 	    return $var;
 	}
 
 	/**
-	 * Display this if slides not found
-	 * @return string --- HTML code
+	 * Wrap single slide to HTML
+	 * @param  object $slide --- post object
+	 * @return string        --- HTML code
 	 */
-	private function noSlideHTML()
+	private function wrapSlide($slide)
 	{
-		return sprintf('<span>%s</span>', __('You haven\'t created any slide!'));
-	}    
+		$thumb = wp_get_attachment_image_src(get_post_thumbnail_id($slide->ID), 'slider');
+	    $thumb = is_array($thumb) ? $thumb[0] : 'http://placehold.it/1020x328';
+		ob_start();
+		?>
+		<li>
+			<figure>
+				<img src="<?php echo $thumb; ?>" alt="<?php echo $slide->post_title; ?>">
+				<figcaption><h3><?php echo $slide->post_title; ?></h3></figcaption>
+			</figure>
+		</li>
+		<?php
 
-	/**
-	 * Get all slides
-	 * @return array --- slides
-	 */
-	abstract public function getSlides();
-	/**
-	 * Wrap single slide
-	 * @param  mixed $slide --- single slide
-	 * @return string       --- HTML code
-	 */
-	abstract public function wrapSlide($slide);                          
-}	
+	    $var = ob_get_contents();
+	    ob_end_clean();
+	    return $var;
+	}
+}

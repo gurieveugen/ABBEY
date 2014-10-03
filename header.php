@@ -1,5 +1,11 @@
 <?php
-$options = __::getOptions(array('gs_phone_text'));
+$options = __::getOptions(
+	array(
+		'gs_phone_text',
+		'gs_pinterest_url',
+		'gs_facebook_url'
+	)
+);
 extract($options);
 ?>
 <!DOCTYPE html>

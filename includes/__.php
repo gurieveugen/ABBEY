@@ -122,7 +122,7 @@ class __{
 	public static function getThumbnailURL($id, $size = 'full')
 	{
 		if(!has_post_thumbnail($id)) return false;
-		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($id), $size);
+		$thumb = wp_get_attachment_image_src(get_post_thumbnail_id($id), $size);
 		return $thumb['0'];
 	}
 

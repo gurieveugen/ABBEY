@@ -1,12 +1,9 @@
 <?php
-get_header(); ?>
-	  <div class="tophome-page">
-		  <figure>
-			  <img src="<?php echo get_template_directory_uri(); ?>/images/uploads/img_05.jpg" alt=" ">
-				<figcaption><h3>Custom made Blinds at Factory Direct Prices</h3></figcaption>
-			</figure>			
-		</div>
-		
+get_header(); 
+$slider = new Slider();
+$count  = intval(get_option('mso_count_slides'));
+echo $slider->getHTML(array('posts_per_page' => $count));
+?>
 		<div class="center-box cf">
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>

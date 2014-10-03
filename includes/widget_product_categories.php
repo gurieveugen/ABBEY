@@ -85,7 +85,7 @@ class ProductCategories extends WP_Widget{
 		<li>
 			<figure>
 				<?php echo $image_new; ?>
-				<figcaption><strong><?php echo $term->name; ?></strong><a class="more" href="<?php echo get_term_link($term); ?>">Click for more</a></figcaption>
+				<figcaption><span><?php echo $term->name; ?></span><a class="more" href="<?php echo get_term_link($term); ?>">Click for more</a></figcaption>
 			</figure>
 		</li>
 	    <?php

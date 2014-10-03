@@ -72,7 +72,7 @@ function twentythirteen_setup() {
 	 * This theme styles the visual editor to resemble the theme style,
 	 * specifically font, colors, icons, and column width.
 	 */
-	add_editor_style( array( 'css/editor-style.css', 'fonts/genericons.css', twentythirteen_fonts_url() ) );
+
 
 	// Adds RSS feed links to <head> for posts and comments.
 	add_theme_support( 'automatic-feed-links' );
@@ -165,14 +165,20 @@ function twentythirteen_scripts_styles() {
 	if ( is_active_sidebar( 'sidebar-1' ) )
 		wp_enqueue_script( 'jquery-masonry' );
 
+	// Add Genericons font, used in the main stylesheet.
+	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.0.2' );
+
+	// Load our main stylesheet.
+	wp_enqueue_style( 'twentyfourteen-style', get_stylesheet_uri(), array( 'genericons' ) );
+
+	// Load the Internet Explorer specific stylesheet.
+	wp_enqueue_style( 'twentyfourteen-ie', get_template_directory_uri() . '/css/ie.css', array( 'twentyfourteen-style', 'genericons' ), '20131205' );
+
 	// Loads JavaScript file with functionality specific to Twenty Thirteen.
 	wp_enqueue_script( 'twentythirteen-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '2013-07-18', true );
 
 	// Add Open Sans and Bitter fonts, used in the main stylesheet.
 	wp_enqueue_style( 'twentythirteen-fonts', twentythirteen_fonts_url(), array(), null );
-
-	// Add Genericons font, used in the main stylesheet.
-	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/fonts/genericons.css', array(), '2.09' );
 
 	// Loads our main stylesheet.
 	wp_enqueue_style( 'twentythirteen-style', get_stylesheet_uri(), array(), '2013-07-18' );
@@ -214,36 +220,6 @@ function twentythirteen_wp_title( $title, $sep ) {
 	return $title;
 }
 add_filter( 'wp_title', 'twentythirteen_wp_title', 10, 2 );
-
-/**
- * Registers two widget areas.
- *
- * @since Twenty Thirteen 1.0
- *
- * @return void
- */
-function twentythirteen_widgets_init() {
-	register_sidebar( array(
-		'name'          => __( 'Main Widget Area', 'twentythirteen' ),
-		'id'            => 'sidebar-1',
-		'description'   => __( 'Appears in the footer section of the site.', 'twentythirteen' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-
-	register_sidebar( array(
-		'name'          => __( 'Secondary Widget Area', 'twentythirteen' ),
-		'id'            => 'sidebar-2',
-		'description'   => __( 'Appears on posts and pages in the sidebar.', 'twentythirteen' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-}
-add_action( 'widgets_init', 'twentythirteen_widgets_init' );
 
 if ( ! function_exists( 'twentythirteen_paging_nav' ) ) :
 /**
@@ -541,6 +517,7 @@ define('TDU', get_bloginfo('template_url'));
 // ==============================================================    
 require_once 'includes/__.php';
 require_once 'includes/widget_promotion_box.php';
+require_once 'includes/widget_video_box.php';
 require_once 'includes/widget_client_testimonials.php';
 require_once 'includes/widget_product_categories.php';
 
@@ -554,7 +531,10 @@ add_action('widgets_init', 'widgetsInit');
 // ==============================================================
 add_image_size('product-widget', 325, 108, true);
 add_image_size('product-thumbnail', 135, 119, true);
+add_image_size('product', 135, 133, true);
+add_image_size('slider', 1020, 328, true);
 add_image_size('logo', 90, 30, true);
+add_image_size('page-thumbnail', 876, 199, true);
 
 //    ____________   __________  ___    __  __________       ______  ____  __ __
 //   / ____/ ____/  / ____/ __ \/   |  /  |/  / ____/ |     / / __ \/ __ \/ //_/
@@ -615,9 +595,17 @@ $ccollection_testimonial = new Controls\ControlsCollection(
 			'Rating',
 			array(
 				'default-value' => '0',
-				'description' => 'Testimonial rating'
+				'description' => 'Testimonial rating ( [min] 1 - 5 [max] )'
 			),
 			array('placeholder' => 'Testimonial rating')			
+		)
+	)
+);
+
+$ccolection_page = new Controls\ControlsCollection(
+	array(
+		new Controls\Textarea(
+			'Subtitle'
 		)
 	)
 );
@@ -626,9 +614,34 @@ $ccolection_product_cat = new Controls\ControlsCollection(
 	array(
 		new Controls\Media(
 			'Background image'
+		),
+		new Controls\Checkbox(
+			'Show logos box'
 		)
 	)
 );
+
+$ccolection_logo = new Controls\ControlsCollection(
+	array(
+		new Controls\Text(
+			'External link',
+			array(),
+			array('placeholder' => 'URL')
+		)
+	)
+);
+
+$ccolection_product = new Controls\ControlsCollection(
+	array(
+		new Controls\Media(
+			'First logo'
+		),
+		new Controls\Media(
+			'Second logo'
+		)
+	)
+);
+
 // ==============================================================
 // Sections
 // ==============================================================
@@ -686,6 +699,14 @@ $post_type_product = new Admin\PostType(
 	)
 );
 
+$post_type_logo = new Admin\PostType(
+	'Logo',
+	array(
+		'icon_code'  => 'f201', 
+		'supports'   => array('title', 'thumbnail')
+	)
+);
+
 // ==============================================================
 // Custom Metaboxes
 // ==============================================================
@@ -698,6 +719,32 @@ $meta_box_testimonial = new Admin\MetaBox(
 	$ccollection_testimonial
 );
 
+$meta_box_additional = new Admin\MetaBox(
+	'Additional page options', 
+	array(
+		'post_type' => 'page', 
+		'prefix' => 'apo_'
+	), 
+	$ccolection_page
+);
+
+$meta_box_logo = new Admin\MetaBox(
+	'Additional logo options', 
+	array(
+		'post_type' => 'logo', 
+		'prefix' => 'alo_'
+	), 
+	$ccolection_logo
+);
+
+$meta_box_product = new Admin\MetaBox(
+	'Logos', 
+	array(
+		'post_type' => 'product', 
+		'prefix' => 'pl_'
+	), 
+	$ccolection_product
+);
 // ==============================================================
 // Custom Taxonomies
 // ==============================================================
@@ -710,6 +757,14 @@ $taxonomy_product_cat = new Admin\Taxonomy(
 	),
 	$ccolection_product_cat
 );
+
+// ==============================================================
+// Other code
+// ==============================================================
+$testimonial        = new Testimonials();
+$logos              = new Logos();
+$products           = new Products();
+$products_comercial = new ProductsComercial();
 
 /**
  * Custom scipts and styles
@@ -737,7 +792,40 @@ function widgetsInit()
 	register_sidebar(array(
 			'name'          => __('Front page Sidebar', 'ABBEY'),
 			'id'            => 'front-page-sidebar',
-			'description'   => __('Sidebar for front page posts', 'ABBEY'),
+			'description'   => __('Sidebar for front page', 'ABBEY'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>'
+		) 
+	);
+
+	register_sidebar(array(
+			'name'          => __('Contact page Sidebar', 'ABBEY'),
+			'id'            => 'contact-page-sidebar',
+			'description'   => __('Sidebar for contact page', 'ABBEY'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>'
+		) 
+	);
+
+	register_sidebar(array(
+			'name'          => __('Products Sidebar', 'ABBEY'),
+			'id'            => 'products-sidebar',
+			'description'   => __('Sidebar for products category', 'ABBEY'),
+			'before_widget' => '<nav id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</nav>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>'
+		) 
+	);
+
+	register_sidebar(array(
+			'name'          => __('Internal page Sidebar', 'ABBEY'),
+			'id'            => 'internal-page-sidebar',
+			'description'   => __('Sidebar for internal page', 'ABBEY'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h3 class="widget-title">',
@@ -746,6 +834,55 @@ function widgetsInit()
 	);
 
 	register_widget('PromotionBox');
+	register_widget('VideoBox');
 	register_widget('ClientTestimonials');
 	register_widget('ProductCategories');
+}
+
+function getLogoProductFromCat($cat)
+{
+	if(!$cat) return '';
+	$arr = array();
+	$args = array(
+		'product_cat'      => $cat,
+		'posts_per_page'   => -1,
+		'offset'           => 0,
+		'category'         => '',
+		'orderby'          => 'post_date',
+		'order'            => 'DESC',
+		'include'          => '',
+		'exclude'          => '',
+		'meta_key'         => '',
+		'meta_value'       => '',
+		'post_type'        => 'product',
+		'post_mime_type'   => '',
+		'post_parent'      => '',
+		'post_status'      => 'publish',
+		'suppress_filters' => true 
+	);
+	$products = get_posts($args);
+	
+	if(count($products))
+	{
+		foreach ($products as $product) 
+		{
+
+			$arr = array_merge($arr, (array) Products::getAdditionalLogos($product->ID));
+		}
+		$arr = deleteEmptyLevel4($arr);
+		
+		if(count($arr))
+		{
+			return sprintf('<div class="logo-product">%s</div>', end($arr));
+		}
+	}
+	return '';
+}
+
+function deleteEmptyLevel4($arr)
+{      
+   $empty_elements = array_keys($arr, '');      
+   foreach ($empty_elements as &$e) unset($arr[$e]);
+
+   return $arr;
 }
