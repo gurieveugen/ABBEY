@@ -43,7 +43,6 @@ extract($options);
   <header id="header">
     <div class="center-box cf">
 		  <h1 class="logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-			<?php if(is_front_page()) { ?>
 			<div class="phone-header-home">
 			  <p><?php echo $gs_phone_text; ?></p>
 			  <ul class="share-header">
@@ -51,9 +50,6 @@ extract($options);
 			    <li class="facebook"><a href="<?php echo $gs_facebook_url; ?>">facebook</a></li>
 				</ul>
 			</div>
-			<?php } else { ?>			
-			<div class="phone-header"><?php echo $gs_phone_text; ?></div>			
-			<?php } ?>
 			<div class="bottom-header">
 			  <div class="btn-freequote"><a href="/contact">Request a FREE Quote</a></div>
 				<div class="searchform-box">

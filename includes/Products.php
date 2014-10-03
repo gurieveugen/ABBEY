@@ -19,6 +19,9 @@ class Products{
 		);
 		$atts    = array_merge($defaults, (array) $atts);
 		$is_show = $atts['show_logos'] == 'on';
+		$atts['product_cat'] = $atts['category'];
+		unset($atts['category']);
+		unset($atts['show_logos']);
 		$args    = array(
 			'product_cat'      => $atts['category'],
 			'posts_per_page'   => 3,
@@ -36,6 +39,7 @@ class Products{
 			'post_status'      => 'publish',
 			'suppress_filters' => true 
 		);
+		$args = array_merge($args, $atts);
 		$products = get_posts($args);
 		$result   = array();
 		$term     = get_term_by('slug', $atts['category'], 'product_cat');

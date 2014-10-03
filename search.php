@@ -13,7 +13,7 @@ get_header();
 	<?php 
 	echo do_shortcode(
 		sprintf(
-			'[products s="%s" show_logos="%s" category=""][/products]',
+			'[products s="%s" show_logos="%s" posts_per_page="-1" category=""][/products]',
 			get_query_var('s'),
 			false
 		)
