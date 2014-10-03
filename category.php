@@ -11,8 +11,10 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+<div class="product-page center-box cf">
+	<?php get_sidebar(); ?>
+	<div class="space">&nbsp;</div>	
+	<div class="right-product" style="background:0px 0px url(<?php echo $image; ?>) no-repeat #FFFFFF;">
 
 		<?php if ( have_posts() ) : ?>
 			<header class="archive-header">
@@ -34,8 +36,6 @@ get_header(); ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
+	</div>
+</div>
 <?php get_footer(); ?>

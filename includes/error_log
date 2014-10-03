@@ -1,0 +1,2 @@
+[23-Sep-2014 19:12:07] PHP Warning:  require_once(MyClass.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/wwwabbeyblin/public_html/wp-content/themes/ABBEY/includes/test.php on line 3
+[23-Sep-2014 19:12:07] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required 'MyClass.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/wwwabbeyblin/public_html/wp-content/themes/ABBEY/includes/test.php on line 3

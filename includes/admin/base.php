@@ -1,5 +1,4 @@
 <?php 
-namespace Admin;
 
 abstract class Base{
 	//                                       __  _          
@@ -21,7 +20,7 @@ abstract class Base{
 	{
 		$this->title    = $title;		
 		$this->options  = $args;	
-		$this->name     = isset($this->options['name']) ? $this->options['name'] : \__::formatName($title);		
+		$this->name     = isset($this->options['name']) ? $this->options['name'] : __::formatName($title);		
 		$this->options  = $args;
 
 		$this->options['name'] = $this->name;
@@ -35,8 +34,8 @@ abstract class Base{
      */
     public function adminScriptsAndStyles()
     {
-        wp_enqueue_style('font-awesome', \__::FONT_AWESOME_CSS);  
-        wp_enqueue_style('gcpage', GCLIB_URL.\__::BASE_CSS );    
+        wp_enqueue_style('font-awesome', __::FONT_AWESOME_CSS);  
+        wp_enqueue_style('gcpage', GCLIB_URL.__::BASE_CSS );    
         wp_enqueue_style('wp-color-picker');  
     }
 

@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Select extends Control{	
 	//                    __  __              __    
@@ -51,7 +50,7 @@ class Select extends Control{
 		
 		$control = sprintf(
 			'<select %s>%s</select>', 
-			\__::joinArray($meta_visible),
+			__::joinArray($meta_visible),
 			$options
 		);
 

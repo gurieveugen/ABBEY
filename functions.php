@@ -1,28 +1,37 @@
 <?php
+
+define('TMP_DIR', plugin_dir_path(__FILE__));
 /**
- * Twenty Thirteen functions and definitions.
- *
- * Sets up the theme and provides some helper functions, which are used in the
- * theme as custom template tags. Others are attached to action and filter
- * hooks in WordPress to change core functionality.
- *
- * When using a child theme (see http://codex.wordpress.org/Theme_Development
- * and http://codex.wordpress.org/Child_Themes), you can override certain
- * functions (those wrapped in a function_exists() call) by defining them first
- * in your child theme's functions.php file. The child theme's functions.php
- * file is included before the parent theme's file, so the child theme
- * functions would be used.
- *
- * Functions that are not pluggable (not wrapped in function_exists()) are
- * instead attached to a filter or action hook.
- *
- * For more information on hooks, actions, and filters,
- * see http://codex.wordpress.org/Plugin_API
- *
- * @package WordPress
- * @subpackage Twenty_Thirteen
- * @since Twenty Thirteen 1.0
+ * Fucking PHP 5.2.9 :(
  */
+function __autoload($class_name) 
+{
+	$path     = sprintf('%s%s.php', TMP_DIR, $class_name);	
+	$includes = sprintf('%sincludes\%s.php', TMP_DIR, $class_name);
+	$controls = sprintf('%sincludes\Controls\%s.php', TMP_DIR, $class_name);	
+	$admin    = sprintf('%sincludes\Admin\%s.php', TMP_DIR, $class_name);	
+	$path     = str_replace('\\', '/', $path);	
+	$includes = str_replace('\\', '/', $includes);	
+	$controls = str_replace('\\', '/', $controls);	
+	$admin    = str_replace('\\', '/', $admin);	
+
+	if (file_exists($path))
+	{
+		require_once $path;
+    }	
+    else if(file_exists($includes))
+    {
+    	require_once $includes;	
+    }
+    else if(file_exists($controls))
+    {
+    	require_once $controls;	
+    }
+    else if(file_exists($admin))
+    {
+    	require_once $admin;	
+    }
+}
 
 /**
  * Sets up the content width value based on the theme's design.
@@ -342,12 +351,7 @@ function twentythirteen_entry_date( $echo = true ) {
 	else
 		$format_prefix = '%2$s';
 
-	$date = sprintf( '<span class="date"><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a></span>',
-		esc_url( get_permalink() ),
-		esc_attr( sprintf( __( 'Permalink to %s', 'twentythirteen' ), the_title_attribute( 'echo=0' ) ) ),
-		esc_attr( get_the_date( 'c' ) ),
-		esc_html( sprintf( $format_prefix, get_post_format_string( get_post_format() ), get_the_date() ) )
-	);
+	$date = sprintf('');
 
 	if ( $echo )
 		echo $date;
@@ -516,10 +520,16 @@ define('TDU', get_bloginfo('template_url'));
 // Requre
 // ==============================================================    
 require_once 'includes/__.php';
+/**
+ * 
+ */
+require_once 'includes/Controls/ControlsCollection.php';
+
 require_once 'includes/widget_promotion_box.php';
 require_once 'includes/widget_video_box.php';
 require_once 'includes/widget_client_testimonials.php';
 require_once 'includes/widget_product_categories.php';
+
 
 // ==============================================================
 // Actions & Filters
@@ -546,24 +556,24 @@ add_image_size('page-thumbnail', 876, 199, true);
 // ==============================================================
 // Controls collections
 // ==============================================================
-$ccollection_global_settings = new Controls\ControlsCollection(
+$ccollection_global_settings = new ControlsCollection(
 	array(		
-		new Controls\Text(
+		new Text(
 			'Pinterest URL', 
 			array('default-value' => 'http://www.pinterest.com/'), 
 			array('placeholder' => 'Enter your pinterest URL')
 		),
-		new Controls\Text(
+		new Text(
 			'Facebook URL', 
 			array('default-value' => 'http://www.facebook.com/whitehouse'), 
 			array('placeholder' => 'Enter your facebook page URL')
 		),
-		new Controls\Textarea(
+		new Textarea(
 			'Address', 
 			array('default-value' => 'PO Box 355, Osborne Park, Western Australia 6917'),
 			array('placeholder' => 'Enter your address')
 		),
-		new Controls\Textarea(
+		new Textarea(
 			'Phone text',
 			array('default-value' => 'Phone 08 9443 1300 or 0413 778 141'),
 			array('placeholder' => 'Enter you phone text')
@@ -571,9 +581,9 @@ $ccollection_global_settings = new Controls\ControlsCollection(
 	)
 );
 
-$ccollection_main_slider = new Controls\ControlsCollection(
+$ccollection_main_slider = new ControlsCollection(
 	array(
-		new Controls\Text(
+		new Text(
 			'Slider delay', 
 			array(
 				'default-value' => '5',
@@ -581,7 +591,7 @@ $ccollection_main_slider = new Controls\ControlsCollection(
 			), 
 			array('placeholder' => 'Delay')
 		),
-		new Controls\Text(
+		new Text(
 			'Count slides', 
 			array('default-value' => '5'), 
 			array('placeholder' => 'Count')
@@ -589,9 +599,9 @@ $ccollection_main_slider = new Controls\ControlsCollection(
 	)
 );
 
-$ccollection_testimonial = new Controls\ControlsCollection(
+$ccollection_testimonial = new ControlsCollection(
 	array(
-		new Controls\Text(
+		new Text(
 			'Rating',
 			array(
 				'default-value' => '0',
@@ -602,28 +612,31 @@ $ccollection_testimonial = new Controls\ControlsCollection(
 	)
 );
 
-$ccolection_page = new Controls\ControlsCollection(
+$ccolection_page = new ControlsCollection(
 	array(
-		new Controls\Textarea(
+		new Textarea(
 			'Subtitle'
 		)
 	)
 );
 
-$ccolection_product_cat = new Controls\ControlsCollection(
+$ccolection_product_cat = new ControlsCollection(
 	array(
-		new Controls\Media(
+		new Media(
 			'Background image'
 		),
-		new Controls\Checkbox(
+		new Media(
+			'Logo'
+		),
+		new Checkbox(
 			'Show logos box'
 		)
 	)
 );
 
-$ccolection_logo = new Controls\ControlsCollection(
+$ccolection_logo = new ControlsCollection(
 	array(
-		new Controls\Text(
+		new Text(
 			'External link',
 			array(),
 			array('placeholder' => 'URL')
@@ -631,21 +644,22 @@ $ccolection_logo = new Controls\ControlsCollection(
 	)
 );
 
-$ccolection_product = new Controls\ControlsCollection(
+$ccolection_product = new ControlsCollection(
 	array(
-		new Controls\Media(
+		new Media(
 			'First logo'
 		),
-		new Controls\Media(
+		new Media(
 			'Second logo'
-		)
+		),
+		new Checkbox('Show title')
 	)
 );
 
 // ==============================================================
 // Sections
 // ==============================================================
-$section_global_settings = new Admin\Section(
+$section_global_settings = new Section(
 	'Global settings', 
 	array(
 		'prefix'   => 'gs_',
@@ -653,7 +667,7 @@ $section_global_settings = new Admin\Section(
 	), 
 	$ccollection_global_settings
 );
-$section_main_slider = new Admin\Section(
+$section_main_slider = new Section(
 	'Main slider options', 
 	array(
 		'prefix' => 'mso_',
@@ -665,7 +679,7 @@ $section_main_slider = new Admin\Section(
 // ==============================================================
 // Pages & Post types
 // ==============================================================
-$theme_settings = new Admin\Page(
+$theme_settings = new Page(
 	'Theme settings', 
 	array('parent_page' => 'themes.php'), 
 	array(
@@ -674,7 +688,7 @@ $theme_settings = new Admin\Page(
 	)
 );
 
-$post_type_slider = new Admin\PostType(
+$post_type_slider = new PostType(
 	'Slider', 
 	array(
 		'icon_code' => 'f03e', 
@@ -682,7 +696,7 @@ $post_type_slider = new Admin\PostType(
 	)
 );
 
-$post_type_testimonial = new Admin\PostType(
+$post_type_testimonial = new PostType(
 	'Testimonial',
 	array(
 		'icon_code' => 'f086', 
@@ -690,7 +704,7 @@ $post_type_testimonial = new Admin\PostType(
 	)
 );
 
-$post_type_product = new Admin\PostType(
+$post_type_product = new PostType(
 	'Product',
 	array(
 		'icon_code'  => 'f07a', 
@@ -699,7 +713,7 @@ $post_type_product = new Admin\PostType(
 	)
 );
 
-$post_type_logo = new Admin\PostType(
+$post_type_logo = new PostType(
 	'Logo',
 	array(
 		'icon_code'  => 'f201', 
@@ -710,7 +724,7 @@ $post_type_logo = new Admin\PostType(
 // ==============================================================
 // Custom Metaboxes
 // ==============================================================
-$meta_box_testimonial = new Admin\MetaBox(
+$meta_box_testimonial = new MetaBox(
 	'Additional testimonial options', 
 	array(
 		'post_type' => 'testimonial', 
@@ -719,7 +733,7 @@ $meta_box_testimonial = new Admin\MetaBox(
 	$ccollection_testimonial
 );
 
-$meta_box_additional = new Admin\MetaBox(
+$meta_box_additional = new MetaBox(
 	'Additional page options', 
 	array(
 		'post_type' => 'page', 
@@ -728,7 +742,7 @@ $meta_box_additional = new Admin\MetaBox(
 	$ccolection_page
 );
 
-$meta_box_logo = new Admin\MetaBox(
+$meta_box_logo = new MetaBox(
 	'Additional logo options', 
 	array(
 		'post_type' => 'logo', 
@@ -737,7 +751,7 @@ $meta_box_logo = new Admin\MetaBox(
 	$ccolection_logo
 );
 
-$meta_box_product = new Admin\MetaBox(
+$meta_box_product = new MetaBox(
 	'Logos', 
 	array(
 		'post_type' => 'product', 
@@ -748,7 +762,7 @@ $meta_box_product = new Admin\MetaBox(
 // ==============================================================
 // Custom Taxonomies
 // ==============================================================
-$taxonomy_product_cat = new Admin\Taxonomy(
+$taxonomy_product_cat = new Taxonomy(
 	'Product category',
 	array(
 		'post_type' => 'product',
@@ -765,6 +779,7 @@ $testimonial        = new Testimonials();
 $logos              = new Logos();
 $products           = new Products();
 $products_comercial = new ProductsComercial();
+
 
 /**
  * Custom scipts and styles
@@ -841,40 +856,11 @@ function widgetsInit()
 
 function getLogoProductFromCat($cat)
 {
-	if(!$cat) return '';
-	$arr = array();
-	$args = array(
-		'product_cat'      => $cat,
-		'posts_per_page'   => -1,
-		'offset'           => 0,
-		'category'         => '',
-		'orderby'          => 'post_date',
-		'order'            => 'DESC',
-		'include'          => '',
-		'exclude'          => '',
-		'meta_key'         => '',
-		'meta_value'       => '',
-		'post_type'        => 'product',
-		'post_mime_type'   => '',
-		'post_parent'      => '',
-		'post_status'      => 'publish',
-		'suppress_filters' => true 
-	);
-	$products = get_posts($args);
-	
-	if(count($products))
+	$field_logo = Taxonomy::getOptionName($cat->term_id, 'product_cat_logo');
+	$logo = (string) get_option($field_logo);
+	if(strlen($logo))
 	{
-		foreach ($products as $product) 
-		{
-
-			$arr = array_merge($arr, (array) Products::getAdditionalLogos($product->ID));
-		}
-		$arr = deleteEmptyLevel4($arr);
-		
-		if(count($arr))
-		{
-			return sprintf('<div class="logo-product">%s</div>', end($arr));
-		}
+		return sprintf('<div class="logo-product"><img src="%s" alt="Logo"></div>', $logo);
 	}
 	return '';
 }

@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 abstract class Control{
 	//                                       __  _          
@@ -79,7 +78,7 @@ abstract class Control{
 	public function setName($name)
 	{
 		$name = (string) $name;
-		$this->name = ($name != '') ? $name : \__::formatName($this->title);
+		$this->name = ($name != '') ? $name : __::formatName($this->title);
 		$this->meta_visible['name'] = $this->name;
 	}
 

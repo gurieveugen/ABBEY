@@ -1,5 +1,4 @@
 <?php
-namespace Admin;
 
 class Taxonomy extends BaseWithControls{
 	//                    __  __              __    
@@ -7,7 +6,7 @@ class Taxonomy extends BaseWithControls{
 	//   / __ `__ \/ _ \/ __/ __ \/ __ \/ __  / ___/
 	//  / / / / / /  __/ /_/ / / / /_/ / /_/ (__  ) 
 	// /_/ /_/ /_/\___/\__/_/ /_/\____/\__,_/____/  
-	public function __construct($title, $args = array(),  \Controls\ControlsCollection $controls = null)
+	public function __construct($title, $args = array(),  ControlsCollection $controls = null)
 	{	        	
 		parent::__construct($title, $args, $controls);
 

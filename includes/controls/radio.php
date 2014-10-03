@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Radio extends Control{	
 	//                    __  __              __    
@@ -66,7 +65,7 @@ class Radio extends Control{
 
 		$radio = sprintf(
 			'<div class="control-radio-wrap"><input %1$s value="%2$s" %3$s>%4$s</div>',
-			\__::joinArray($meta),
+			__::joinArray($meta),
 			$item[0],
 			checked($item[0], $value, false),
 			$label->getHTML()

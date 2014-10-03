@@ -1,5 +1,4 @@
 <?php 
-namespace Admin;
 
 abstract class BaseWithControls extends Base{
 	//                                       __  _          
@@ -15,7 +14,7 @@ abstract class BaseWithControls extends Base{
 	//   / __ `__ \/ _ \/ __/ __ \/ __ \/ __  / ___/
 	//  / / / / / /  __/ /_/ / / / /_/ / /_/ (__  ) 
 	// /_/ /_/ /_/\___/\__/_/ /_/\____/\__,_/____/  
-	public function __construct($title, $args = array(), \Controls\ControlsCollection $controls = null)
+	public function __construct($title, $args = array(), ControlsCollection $controls = null)
 	{		
 		parent::__construct($title, $args);
 		$this->controls = $controls;

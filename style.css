@@ -16,27 +16,36 @@ html, body
 {
 	font-family:'dinlightwebfont';
 	src:url('fonts/dinlightwebfont.eot');
-	src:local('dinlightwebfont'), 
+	src:url('fonts/dinlightwebfont.eot?#iefix') format('embedded-opentype'),
 	    url('fonts/dinlightwebfont.woff') format('woff'),
-		  url('fonts/dinlightwebfont.ttf') format('truetype');
+		  url('fonts/dinlightwebfont.ttf') format('truetype'),
+			url('fonts/dinlightwebfont.svg#dinlightwebfont') format('svg');
+	font-weight:normal;
+  font-style:normal;
 }
 
 @font-face 
 {
 	font-family:'dinregularwebfont';
 	src:url('fonts/dinregularwebfont.eot');
-	src:local('dinregularwebfont'), 
+	src:url('fonts/dinregularwebfont.eot?#iefix') format('embedded-opentype'),
 	    url('fonts/dinregularwebfont.woff') format('woff'),
-		  url('fonts/dinregularwebfont.ttf') format('truetype');
+		  url('fonts/dinregularwebfont.ttf') format('truetype'),
+			url('fonts/dinregularwebfont.svg#dinregularwebfont') format('svg');
+	font-weight:normal;
+  font-style:normal;
 }
 
 @font-face 
 {
 	font-family:'dinboldwebfont';
 	src:url('fonts/dinboldwebfont.eot');
-	src:local('dinboldwebfont'), 
+	src:url('fonts/dinboldwebfont.eot?#iefix') format('embedded-opentype'),
 	    url('fonts/dinboldwebfont.woff') format('woff'),
-		  url('fonts/dinboldwebfont.ttf') format('truetype');
+		  url('fonts/dinboldwebfont.ttf') format('truetype'),
+			url('fonts/dinboldwebfont.svg#dinboldwebfont') format('svg');
+	font-weight:normal;
+  font-style:normal;
 }
 
 div, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, select, input, textarea, img, dl, dt, dd, table, div, td, theder, button, blockquote, article, aside, audio, canvas, command, datalist, details, figcaption, figure, footer, header, hgroup, keygen, mark, menu, meter, nav, output, progress, rp, rt, ruby, section, source, summary, time, video, wbr
@@ -45,7 +54,7 @@ div, ul, ol, li, p, h1, h2, h3, h4, h5, h6, form, select, input, textarea, img, 
   margin:0px;
 }
 
-article, aside, audio, canvas, command, datalist, details, figcaption, figure, footer, header, hgroup, keygen, mark, menu, meter, nav, output, progress, rp, rt, ruby, section, source, summary, time, video, wbr, address
+article, aside, audio, canvas, command, datalist, details, figcaption, figure, footer, header, hgroup, keygen, mark, menu, meter, nav, output, progress, rp, rt, ruby, section, source, summary, video, wbr, address
 {
   display:block;
   font-style:normal;
@@ -57,6 +66,7 @@ h1, h2, h3, h4, h5, h6
 	font-weight:normal;
 	line-height:normal;
 	color:#2c4aa0;
+	position:relative;
 }
 
 h1
@@ -315,7 +325,7 @@ header#header
 {
   background:#ffffff;
   position:relative;
-	z-index:3;
+	z-index:4;
 }
 
 header#header div.center-box
@@ -357,6 +367,7 @@ h1.logo
 	position:absolute;
 	top:35px;
 	left:32px;
+	z-index:1;
 }
 
 h1.logo a
@@ -378,6 +389,8 @@ div.phone-header
 	font-size:30px;
 	line-height:31px;
 	color:#3c3c3e;
+	position:relative;
+	z-index:1;
 }
 
 div.phone-header-home
@@ -388,6 +401,8 @@ div.phone-header-home
 	font-size:26px;
 	line-height:31px;
 	color:#3c3c3e;
+	position:relative;
+	z-index:1;
 }
 
 div.phone-header-home p
@@ -458,9 +473,8 @@ div.bottom-header:after
 div.btn-freequote
 {
   width:205px;
-	height:34px;
+	height:43px;
 	margin:0px 52px 0px 0px;
-	padding:9px 0px 0px 0px;
 	float:left;
 	background:0px 0px url(images/bg_img_03.png) repeat-x;
 	font-family:'dinboldwebfont';
@@ -497,9 +511,24 @@ div.btn-freequote:after
 
 div.btn-freequote a
 {
+  height:34px;
+	padding:9px 0px 0px 0px;
+	display:block;
   color:#FFFFFF;
 	text-decoration:none;
 	text-shadow:-1px -1px 3px #9b3f0c;
+}
+
+.mac div.btn-freequote a
+{
+  height:30px;
+	padding:13px 0px 0px 0px;
+}
+
+.mac.gecko div.btn-freequote a
+{
+  height:24px;
+	padding:19px 0px 0px 0px;
 }
 
 div.searchform-box
@@ -524,6 +553,7 @@ nav.main-menu
 	line-height:17px;
 	text-transform:uppercase;
 	position:relative;
+	z-index:3;
 }
 
 nav.main-menu:before
@@ -836,6 +866,7 @@ article.post-home h1
 	line-height:25px;
 	color:#ec6a20;
 	text-transform:uppercase;
+	position:relative;
 }
 
 article.post-home p
@@ -929,6 +960,11 @@ div.widget-mobileshowroom ul li
 	position:relative;
 }
 
+.mac div.widget-mobileshowroom ul li
+{
+  padding-top:4px;
+}
+
 div.widget-mobileshowroom ul li:before
 {
   width:23px;
@@ -953,7 +989,7 @@ div.widget-middlemodules
 	padding:0px 0px 0px 6px;
 	float:right;
 	font-size:14px;
-	line-height:14px;
+	line-height:normal;
 	text-transform:uppercase;
 	color:#ec6a20;
 	position:relative;
@@ -977,14 +1013,22 @@ div.widget-middlemodules img
   display:block;
 }
 
-div.widget-middlemodules strong
+div.widget-middlemodules span
 {
-  margin:0px 3px 0px 0px;
-  padding:0px 10px 0px 0px;
+	font-family:'dinboldwebfont';
+	color:#ec6a20;
   position:relative;
 }
 
-div.widget-middlemodules strong:after
+div.widget-middlemodules a.more
+{
+  margin:0px 0px 0px 13px;
+  color:#3c3c3e;
+	text-decoration:underline;
+	position:relative;
+}
+
+div.widget-middlemodules a.more:after
 {
   width:6px;
 	height:11px;
@@ -993,13 +1037,12 @@ div.widget-middlemodules strong:after
 	background:-49px -26px url(images/sprite.png) no-repeat;
 	position:absolute;
 	top:4px;
-	right:0px;
+	left:-10px;
 }
 
-div.widget-middlemodules a.more
+.mac div.widget-middlemodules a.more:after
 {
-  color:#3c3c3e;
-	text-decoration:underline;
+	top:1px;
 }
 
 div.widget-middlemodules a.more:hover
@@ -1401,6 +1444,16 @@ ul.testimonials-list h3
 	color:#383837;
 }
 
+.mac ul.testimonials-list h3
+{
+  padding-top:4px;
+}
+
+.mac.gecko ul.testimonials-list h3
+{
+  padding-top:7px;
+}
+
 ul.testimonials-list div.txt
 {
   width:740px;
@@ -1709,7 +1762,7 @@ div.product-page div.space
 aside.sidebar-product
 {
   width:269px;
-	padding:31px 7px 27px 7px;
+	padding:31px 7px 5px 7px;
 	display:table-cell;
 	vertical-align:top;
 	background:#ffffff;
@@ -1726,7 +1779,7 @@ div.widget-img img
 	display:block;
 }
 
-nav.widget-menu
+nav.widget_nav_menu
 {
   padding:0px 0px 7px 0px;
 	font-size:14px;
@@ -1735,9 +1788,9 @@ nav.widget-menu
 	text-transform:uppercase;
 }
 
-nav.widget-menu h3
+nav.widget_nav_menu h3
 {
-  padding:5px 23px 8px 23px;
+  padding:7px 23px 7px 23px;
 	background:0px 0px url(images/bg_img_04.gif) repeat;
 	font-family:'dinboldwebfont';
 	font-size:17px;
@@ -1746,7 +1799,21 @@ nav.widget-menu h3
 	text-transform:uppercase;
 }
 
-nav.widget-menu ul
+.mac nav.widget_nav_menu h3
+{
+  padding-top:8px;
+	padding-bottom:5px;
+	line-height:17px;
+}
+
+.mac.gecko nav.widget_nav_menu h3
+{
+  padding-top:13px;
+	padding-bottom:0px;
+	line-height:17px;
+}
+
+nav.widget_nav_menu ul
 {
   margin:0px;
 	padding:6px 10px 0px 18px;
@@ -1754,22 +1821,28 @@ nav.widget-menu ul
 	position:relative;
 }
 
-nav.widget-menu ul li
+nav.widget_nav_menu ul li
 {
   padding:0px 5px 0px 5px;
 	border-bottom:1px dotted #a3a3a3;
 	position:relative;
 }
 
-nav.widget-menu ul li a
+nav.widget_nav_menu ul li a
 {
   padding:0px 0px 0px 9px;
+	display:block;
   color:#3c3c3e;
 	text-decoration:none;
 	position:relative;
 }
 
-nav.widget-menu ul li a:before
+.mac nav.widget_nav_menu ul li a
+{
+  padding-top:1px;
+}
+
+nav.widget_nav_menu ul li a:before
 {
   width:6px;
 	height:11px;
@@ -1781,8 +1854,13 @@ nav.widget-menu ul li a:before
 	left:0px;
 }
 
-nav.widget-menu ul li a:hover,
-nav.widget-menu ul li a.active
+.mac nav.widget_nav_menu ul li a:before
+{
+  top:3px;
+}
+
+nav.widget_nav_menu ul li a:hover,
+nav.widget_nav_menu ul li a.active
 {
   color:#ec6a20;
 	text-decoration:none;
@@ -1805,6 +1883,11 @@ div.padding-top91
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
 	position:relative;
+}
+
+div.product-page.search div.padding-top91
+{
+  padding-top:0px;
 }
 
 div.padding-top278
@@ -2126,15 +2209,62 @@ ul.logos-bottom img
   display:block;
 }
 /* ------- end page ------- */
+.archive-title
+{
+  color:#3C3C3E;
+}
+
+article.blog-post
+{
+  padding:20px;
+}
+
+article.blog-post header.entry-header
+{
+  margin-bottom:10px;
+}
+
+article.blog-post footer.entry-meta
+{
+  margin-top:10px;
+}
+
+article.blog-post a
+{
+  color:#ec6a20;
+	text-decoration:none;
+}
+
+article.blog-post a:hover
+{
+  color:#ec6a20;
+	text-decoration:underline;
+}
+
+article.blog-post h1,
+article.blog-post h2
+{
+  margin:0px;
+	padding:0px 0px 7px 0px;
+	font-size:25px;
+	line-height:25px;
+	color:#ec6a20;
+	text-transform:uppercase;
+	position:relative;
+}
+
+article.blog-post h1 a,
+article.blog-post h2 a,
+article.blog-post h1 a:hover,
+article.blog-post h2 a:hover
+{
+  text-decoration:none;
+}
 /* ---------- end CONTENT ---------- */
 
-textarea, 
-.jq-checkbox,
-.jq-radio, 
-div.enewsletter-home input.txt,
-div.widget-newsletter input.txt, 
-div.comments-form input.txt,
-div.comments-form textarea
+form.search-form, 
+div.widget-testimonials blockquote, 
+article.full-post ul li:before
 {
 	behavior:url(/wp-content/themes/ABBEY/js/PIE.htc);
 }

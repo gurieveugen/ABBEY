@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class ControlsCollection{
 	//                                       __  _          

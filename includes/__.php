@@ -23,7 +23,7 @@ class __{
 		// =========================================================
 		// Load all php files
 		// =========================================================
-		spl_autoload_register(array(&$this, 'autoloader'));
+		
 	}  
 	
 	/**
@@ -31,12 +31,44 @@ class __{
 	 */
 	public static function autoloader($class) 
 	{			
-		$path = sprintf('%s%s.php', GCLIB_DIR, $class);	
-		$path = str_replace('\\', '/', $path);	
+		$path     = sprintf('%s%s.php', GCLIB_DIR, $class);	
+		$includes = sprintf('%sincludes\%s.php', GCLIB_DIR, $class);
+		$controls = sprintf('%sincludes\Controls\%s.php', GCLIB_DIR, $class);	
+		$admin    = sprintf('%sincludes\Admin\%s.php', GCLIB_DIR, $class);	
+		$path     = str_replace('\\', '/', $path);	
+		$includes = str_replace('\\', '/', $includes);	
+		$controls = str_replace('\\', '/', $controls);	
+		$admin    = str_replace('\\', '/', $admin);	
+		
 		if (file_exists($path))
 		{
+			echo '<pre>';
+			var_dump($path);
+			echo '</pre>';
 			require_once $path;
 	    }	
+	    else if(file_exists($includes))
+	    {
+	    	echo '<pre>';
+	    	var_dump($includes);
+	    	echo '</pre>';
+	    	require_once $includes;	
+	    }
+	    else if(file_exists($controls))
+	    {
+	    	echo '<pre>';
+	    	var_dump($controls);
+	    	echo '</pre>';
+	    	require_once $controls;	
+	    }
+	    else if(file_exists($admin))
+	    {
+	    	echo '<pre>';
+	    	var_dump($admin);
+	    	echo '</pre>';
+	    	require_once $admin;	
+	    }
+
 	}     
 
 	/**
@@ -122,7 +154,7 @@ class __{
 	public static function getThumbnailURL($id, $size = 'full')
 	{
 		if(!has_post_thumbnail($id)) return false;
-		$thumb = wp_get_attachment_image_src(get_post_thumbnail_id($id), $size);
+		$thumb = wp_get_attachment_image_src( get_post_thumbnail_id($id), $size);
 		return $thumb['0'];
 	}
 

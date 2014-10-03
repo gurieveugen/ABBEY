@@ -1,5 +1,4 @@
 <?php
-namespace Admin;
 
 class Page extends Base{
 	//                                       __  _          

@@ -70,13 +70,15 @@ class Products{
 	protected function wrapProducts($products, $term, $css_class, $logos)
 	{
 		ob_start();
+		$classes['pelmetsaccessories'] = 'small';
+		$class = isset($classes[$term->slug]) ? $classes[$term->slug] : '';
 		?>
 
 		<div class="<?php echo $css_class; ?> cf">
-			<?php echo getLogoProductFromCat($term->slug); ?>
+			<?php echo getLogoProductFromCat($term); ?>
 			<div id="post-<?php echo $term->term_id; ?>" class="post-product cf">
 				<header class="tit-product">
-					<h1><?php echo $term->name; ?></h1>
+					<h1 class="<?php echo $class;?> "><?php echo $term->name; ?></h1>
 				</header>
 				<ul class="smallpost-list cf">
 					<?php echo $products; ?>
@@ -100,12 +102,15 @@ class Products{
 	{
 		$img   = has_post_thumbnail($product->ID) ? \__::getThumbnailURL($product->ID, 'thumbnail') : 'http://placehold.it/135x119';
 		$logos = $this->getAdditionalLogos($product->ID);
+		$show_title = (string) get_post_meta($product->ID, 'pl_show_title', true );
+		$title = (strlen($product->post_title) AND ($show_title)) ? sprintf('<h2>%s</h2>', $product->post_title) : '';
 		ob_start();
 		?>
 		<li>
 			<article class="cf">
 				<figure class="img"><img src="<?php echo $img; ?>" alt=" "></figure>
 				<div class="txt">
+					<?php echo $title; ?>
 					<p><?php echo $product->post_content; ?></p>
 					<footer>
 						<a href="/contact" class="btn-enquiry">Make an enquiry</a>

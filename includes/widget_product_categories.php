@@ -74,9 +74,9 @@ class ProductCategories extends WP_Widget{
 
 	function wrapCategory($term)
 	{	
-		$image     = \Admin\Taxonomy::getOptionName($term->term_id, 'product_cat_background_image');
+		$image     = Taxonomy::getOptionName($term->term_id, 'product_cat_background_image');
 		$image     = get_option($image);
-		$image_id  = \__::getAttachmentIDFromSrc($image);
+		$image_id  = __::getAttachmentIDFromSrc($image);
 		$image_new = wp_get_attachment_image_src( $image_id, 'product-widget');
 		$image_new = is_array($image_new) ?  sprintf('<img alt="%s" src="%s">', $term->name, $image_new[0]) : sprintf('<img alt="%s" src="%s">', $term->name, 'http://placehold.it/325x108');
 

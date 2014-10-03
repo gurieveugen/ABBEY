@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Media extends Control{	
 	//                    __  __              __    
@@ -62,7 +61,7 @@ class Media extends Control{
 	{		
 		if($value)
 		{
-			$id = \__::getAttachmentIDFromSrc($value);
+			$id = __::getAttachmentIDFromSrc($value);
 			if($id)
 			{
 				$img = wp_get_attachment_image_src($id, 'thumbnail-small');

@@ -1,7 +1,7 @@
 <?php 
 $qo         = get_queried_object();
-$field_img  = \Admin\Taxonomy::getOptionName($qo->term_id, 'product_cat_background_image');
-$field_show = \Admin\Taxonomy::getOptionName($qo->term_id, 'product_cat_show_logos_box');
+$field_img  = Taxonomy::getOptionName($qo->term_id, 'product_cat_background_image');
+$field_show = Taxonomy::getOptionName($qo->term_id, 'product_cat_show_logos_box');
 $image      = (string) get_option($field_img);
 
 get_header(); 

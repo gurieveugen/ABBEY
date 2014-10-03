@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Textarea extends Control{	
 	//                    __  __              __    
@@ -26,7 +25,7 @@ class Textarea extends Control{
 	 */
 	public function getHTML($value = null)
 	{			
-		$control  = sprintf('<textarea %s>%s</textarea>', \__::joinArray($this->getMetaVisible()), (string) $value);
+		$control  = sprintf('<textarea %s>%s</textarea>', __::joinArray($this->getMetaVisible()), (string) $value);
 		return $this->getTitleHTML().$control.$this->getDescriptionHTML();
 	}
 }

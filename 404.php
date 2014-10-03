@@ -9,8 +9,10 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+<div class="product-page center-box cf">
+	<?php get_sidebar(); ?>
+	<div class="space">&nbsp;</div>	
+	<div class="right-product" style="background:0px 0px url(<?php echo $image; ?>) no-repeat #FFFFFF;">
 
 			<header class="page-header">
 				<h1 class="page-title"><?php _e( 'Not found', 'twentythirteen' ); ?></h1>
@@ -25,7 +27,6 @@ get_header(); ?>
 				</div><!-- .page-content -->
 			</div><!-- .page-wrapper -->
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
+	</div>
+</div>
 <?php get_footer(); ?>

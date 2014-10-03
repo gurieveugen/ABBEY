@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Checkbox extends Control{	
 	//                    __  __              __    

@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class Label{	
 	//                                       __  _          
@@ -35,13 +34,13 @@ class Label{
 	 */
 	public function getHTML($value = null)
 	{		
-		$meta = \__::unsetKeys(array('container'), $this->meta);
+		$meta = __::unsetKeys(array('container'), $this->meta);
 				
 		return sprintf(
 			'<%1$s %3$s>%2$s</%1$s>', 
 			$this->meta['container'], 
 			$this->title,
-			\__::joinArray($meta)
+			__::joinArray($meta)
 		);
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-namespace Controls;
 
 class ColorPicker extends Control{	
 	//                    __  __              __    
@@ -27,7 +26,7 @@ class ColorPicker extends Control{
 	public function getHTML($value = null)
 	{	
 		$this->setValue($value);	
-		$control = sprintf('<input %s />', \__::joinArray($this->getMetaVisible()));
+		$control = sprintf('<input %s />', __::joinArray($this->getMetaVisible()));
 		return $this->getTitleHTML().$control.$this->getDescriptionHTML();
 	}
 

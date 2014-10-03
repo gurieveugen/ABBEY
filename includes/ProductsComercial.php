@@ -26,7 +26,7 @@ class ProductsComercial extends Products{
 		?>
 
 		<div class="<?php echo $css_class; ?> cf">
-			<?php echo getLogoProductFromCat($term->slug); ?>
+			<?php echo getLogoProductFromCat($term); ?>
 			<article id="post-<?php echo $term->term_id; ?>" class="full-post post-product cf">
 				<header class="tit-product">
 					<h1><?php echo $term->name; ?></h1>
@@ -54,6 +54,8 @@ class ProductsComercial extends Products{
 	{
 		$img   = has_post_thumbnail($product->ID) ? \__::getThumbnailURL($product->ID, 'thumbnail') : 'http://placehold.it/135x119';
 		$logos = $this->getAdditionalLogos($product->ID);
+		$show_title = (string) get_post_meta($product->ID, 'pl_show_title', true );
+		$title = (strlen($product->post_title) AND ($show_title)) ? sprintf('<h2>%s</h2>', $product->post_title) : '';
 		ob_start();
 		?>	
 		<div class="img">
@@ -69,6 +71,7 @@ class ProductsComercial extends Products{
 			?>	
 		</div>
 		<div class="txt">
+			<?php echo $title; ?>
 			<?php echo $product->post_content; ?>
 		</div>	
 		<?php

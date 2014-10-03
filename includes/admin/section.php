@@ -1,5 +1,4 @@
 <?php
-namespace Admin;
 
 class Section extends BaseWithControls{
 	//                                       __  _          
@@ -15,7 +14,7 @@ class Section extends BaseWithControls{
 	//   / __ `__ \/ _ \/ __/ __ \/ __ \/ __  / ___/
 	//  / / / / / /  __/ /_/ / / / /_/ / /_/ (__  ) 
 	// /_/ /_/ /_/\___/\__/_/ /_/\____/\__,_/____/  
-	public function __construct($title, $args = array(), \Controls\ControlsCollection $controls = null)
+	public function __construct($title, $args = array(), ControlsCollection $controls = null)
 	{
 		$args = array_merge(array('class' => '', 'tab_icon' => ''), $args);
 		parent::__construct($title, $args, $controls);

@@ -1,5 +1,4 @@
 <?php
-namespace Admin;
 
 class PostType extends Base{
 	//                    __  __              __    

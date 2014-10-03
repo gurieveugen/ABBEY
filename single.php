@@ -9,20 +9,18 @@
 
 get_header(); ?>
 
-	<div id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+<div class="product-page center-box cf">
+	<?php get_sidebar(); ?>
+	<div class="space">&nbsp;</div>	
+	<div class="right-product" style="background:0px 0px url(<?php echo $image; ?>) no-repeat #FFFFFF;">
 
 			<?php /* The loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php get_template_part( 'content', get_post_format() ); ?>
-				<?php twentythirteen_post_nav(); ?>
-				<?php comments_template(); ?>
 
 			<?php endwhile; ?>
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-<?php get_sidebar(); ?>
+	</div>
+</div>
 <?php get_footer(); ?>
