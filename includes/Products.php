@@ -23,7 +23,7 @@ class Products{
 		unset($atts['category']);
 		unset($atts['show_logos']);
 		$args    = array(
-			'product_cat'      => $atts['category'],
+			'product_cat'      => $atts['product_cat'],
 			'posts_per_page'   => 3,
 			'offset'           => 0,
 			'category'         => '',
@@ -42,9 +42,9 @@ class Products{
 		$args = array_merge($args, $atts);
 		$products = get_posts($args);
 		$result   = array();
-		$term     = get_term_by('slug', $atts['category'], 'product_cat');
+		$term     = get_term_by('slug', $atts['product_cat'], 'product_cat');
 		$logos    = '';
-
+		
 		if(count($products))
 		{
 			foreach ($products as &$product) 

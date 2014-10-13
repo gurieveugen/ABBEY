@@ -61,6 +61,35 @@ extract($options);
 
 	<nav class="main-menu cf">
 		<?php wp_nav_menu( array( 'theme_location' => 'primary', 'container' => false ) ); ?>
+		<div class="sub-menu cf">
+				  <div class="item-sub-menu">
+					  <h2>Indoor Blinds</h2>
+						<ul>
+						  <li><a href="#">Roller</a></li>
+							<li><a href="#">Sunscreen</a></li>
+							<li><a href="#">Double Roller</a></li>
+						</ul>
+						<ul>
+						  <li><a href="#">Aluminium</a></li>
+							<li><a href="#">Timber</a></li>
+							<li><a href="#">Roman</a></li>
+						</ul>
+						<ul>
+						  <li><a href="#">Vertical</a></li>
+							<li><a href="#">Panel</a></li>
+							<li><a href="#">Shutters</a></li>
+						</ul>
+						<ul>
+						  <li><a href="#">Motorized</a></li>
+							<li><a href="#">Curtains</a></li>
+						</ul>
+					</div>
+					
+					<figure class="img-sub-menu">
+					  <figcaption>Timber Blinds are an effective light control and suitable for all environments</figcaption>
+						<img src="<?php echo get_template_directory_uri(); ?>/images/uploads/img_sub_menu.jpg" alt=" ">
+					</figure>
+				</div>
 	</nav>	
 	
 	<section id="content-section" class="cf">	
