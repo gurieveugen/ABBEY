@@ -520,6 +520,7 @@ define('TDU', get_bloginfo('template_url'));
 // Requre
 // ==============================================================    
 require_once 'includes/__.php';
+require_once 'includes/GCMenu.php';
 /**
  * 
  */

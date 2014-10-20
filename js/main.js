@@ -21,4 +21,26 @@ jQuery(window).load(function() {
 			jQuery(this).find('span.wpcf7-not-valid-tip').fadeOut(200);
 		}
 	});
+	// ==============================================================
+	// MENU
+	// ==============================================================
+	jQuery('#menu-main-menu > li > a').hover(function(e){
+		var li      = jQuery(this).parent();
+		var visible = li.children('.sub-menu').is(':visible');
+		
+		if(li.hasClass('menu-item-has-children'))
+		{
+			if(!visible)
+			{
+				li.children('.sub-menu').show();	
+			}
+			e.preventDefault();
+		}
+	});
+
+	jQuery('#menu-main-menu > li').mouseleave(function(e){
+		jQuery('#menu-main-menu .sub-menu').each(function(){
+			jQuery(this).hide();
+		});	
+	});
 });
