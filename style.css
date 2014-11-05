@@ -583,7 +583,6 @@ nav.main-menu > ul > li
 {
   padding:0px 0px 0px 0px;
 	float:left;
-	position:relative;
 }
 
 nav.main-menu > ul > li:first-child
@@ -2319,7 +2318,7 @@ ul.logos-bottom
 {
   width:100%;
   margin:0px 0px 0px 0px;
-	padding:21px 11px 10px 21px;
+	padding:43px 11px 36px 21px;
 	box-sizing:border-box;
   -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box;
@@ -2392,6 +2391,95 @@ article.blog-post h2 a:hover
 {
   text-decoration:none;
 }
+
+/* ------- testimonials page ------- */
+ul.testimonials-list-post
+{
+  margin:12px 0px 0px 0px;
+	padding:19px 29px 19px 32px;
+	background:#FFFFFF;
+	list-style:none;
+	font-size:16px;
+	line-height:18px;
+	color:#3c3c3e;
+}
+
+ul.testimonials-list-post > li
+{
+  padding:14px 0px 14px 0px;
+	border-top:1px solid #c9ccc6;
+}
+
+ul.testimonials-list-post > li:first-child
+{
+  border-top:none;
+}
+
+ul.testimonials-list-post figure
+{
+  width:39px;
+	padding:0px 12px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list-post img
+{
+  display:block;
+}
+
+ul.testimonials-list-post div.name
+{
+  width:165px;
+	padding:0px 12px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list-post ul.star-list
+{
+  margin:0px;
+	padding:1px 0px 6px 0px;
+	list-style:none;
+}
+
+ul.testimonials-list-post ul.star-list li
+{
+  width:13px;
+  padding:0px 2px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list-post h3
+{
+  margin:0px;
+	padding:0px 0px 0px 5px;
+	font-family:'dinboldwebfont';
+	font-size:17px;
+	line-height:17px;
+	color:#383837;
+}
+
+.mac ul.testimonials-list-post h3
+{
+  padding-top:4px;
+}
+
+.mac.gecko ul.testimonials-list-post h3
+{
+  padding-top:7px;
+}
+
+ul.testimonials-list-post div.txt
+{
+  width:390px;
+	padding:1px 0px 0px 0px;
+	float:left;
+}
+
+ul.testimonials-list-post p
+{
+  padding:0px 0px 0px 0px;
+}
+/* ------- end testimonials page ------- */
 /* ---------- end CONTENT ---------- */
 
 form.search-form, 
