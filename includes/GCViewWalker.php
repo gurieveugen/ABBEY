@@ -52,7 +52,8 @@ class GCViewWalker extends Walker_Nav_Menu
             $all_items = $this->getAllItems($item->menu_item_parent);
             $p = get_post($item->menu_item_parent);
             $p = wp_setup_nav_menu_item($p);
-
+            $p->count_submenus = $p->count_submenus ? $p->count_submenus : 3;
+            
             if($all_items[0]->ID == $item->ID)
             {
                 $output .= '<div class="item-sub-menu">';
@@ -60,7 +61,7 @@ class GCViewWalker extends Walker_Nav_Menu
                 $output .= '<ul>';
             }
     		$this->subitems_count++;
-            if($this->subitems_count)
+            if($this->subitems_count AND $p->count_submenus)
             {
                 if(is_int($this->subitems_count / $p->count_submenus))
                 {
