@@ -800,12 +800,24 @@ $products_comercial = new ProductsComercial();
  */
 function customScriptsAndStyles()
 {
+	// ==============================================================
+	// Scripts
+	// ==============================================================
 	wp_enqueue_script('css_browser_selector', TDU.'/js/css_browser_selector.js');
 	wp_enqueue_script('jquery-min', TDU.'/js/jquery.min.js');
 	wp_enqueue_script('formstyler', TDU.'/js/jquery.formstyler.js', array('jquery'));
 	wp_enqueue_script('main', TDU.'/js/main.js', array('jquery'));
 	wp_enqueue_script('slider', TDU.'/js/jquery.flexslider.js', array('jquery'));
+	wp_enqueue_script('lightbox', TDU.'/js/lightbox.min.js', array('jquery'));
 
+	// ==============================================================
+	// Styles
+	// ==============================================================
+	wp_enqueue_style('lightbox', TDU.'/css/lightbox.css');
+
+	// ==============================================================
+	// Localize
+	// ==============================================================
 	wp_localize_script(
 		'slider', 
 		'l10n_slider',  

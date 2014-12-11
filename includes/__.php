@@ -214,6 +214,37 @@ class __{
 		return $options;
 	}
 
+	/**
+	 * Get all images from post
+	 * @param  integer $id --- post id
+	 * @param  string $size --- image size
+	 * @return array --- images
+	 */
+	public static function getAllImagesFromPost($id, $size = 'full')
+	{
+		$args = array(
+			'post_type'   => 'attachment',
+			'numberposts' => -1,
+			'post_status' => null,
+			'post_parent' => $id
+		);
+
+		$attachments = get_posts( $args );
+		if ( $attachments )
+		{
+			foreach ( $attachments as $attachment )
+			{
+				$tmp = wp_get_attachment_image_src($attachment->ID, $size);
+
+				if($tmp[0])
+				{
+					$images[] = $tmp[0];
+				}  
+			}
+		}
+		return $images;
+	}
+
 }
 
 // =========================================================

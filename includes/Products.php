@@ -112,15 +112,17 @@ class Products{
 	 */
 	protected function wrapProduct($product)
 	{
-		$img   = has_post_thumbnail($product->ID) ? \__::getThumbnailURL($product->ID, 'thumbnail') : 'http://placehold.it/135x119';
-		$logos = $this->getAdditionalLogos($product->ID);
+		$images = $this->getImages($product->ID);
+		$logos  = $this->getAdditionalLogos($product->ID);
 		$show_title = (string) get_post_meta($product->ID, 'pl_show_title', true );
 		$title = (strlen($product->post_title) AND ($show_title)) ? sprintf('<h2>%s</h2>', $product->post_title) : '';
 		ob_start();
 		?>
 		<li>
 			<article class="cf">
-				<figure class="img"><img src="<?php echo $img; ?>" alt=" "></figure>
+				<?php
+				echo $this->wrapImages($images);
+				?>
 				<div class="txt">
 					<?php echo $title; ?>
 					<p><?php echo $product->post_content; ?></p>
@@ -141,6 +143,84 @@ class Products{
 		$var = ob_get_contents();
 		ob_end_clean();
 		return $var;
+	}
+
+	/**
+	 * Wrap images array to HTML code
+	 * @param  array $images --- image objects
+	 * @return string --- HTML code
+	 */
+	public function wrapImages($images)
+	{
+		$first  = true;
+		$result = array();
+		if(is_array($images) && count($images))
+		{
+			foreach ($images as $img) 
+			{
+				array_push($result, $this->wrapImage($img, !$first));
+				$first = false;
+			}
+		}
+		return implode('', $result);
+	}
+
+	/**
+	 * Wrap image post to HTML code
+	 * @param  object $image --- post object with image and image_full field
+	 * @param  boolean $hide  --- hide or no
+	 * @return string --- HTML code
+	 */
+	public function wrapImage($image, $hide)
+	{
+		$style = ($hide) ? 'style="display: none;"' : '';
+		ob_start();
+		?>
+		<figure class="img" <?php echo $style; ?>>
+			<a href="<?php echo $image->image_full; ?>" data-lightbox="group" data-title="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
+				<img src="<?php echo $image->image; ?>" alt="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
+			</a>
+		</figure>
+		<?php
+		
+		$var = ob_get_contents();
+		ob_end_clean();
+		return $var;
+	}
+	
+	/**
+	 * Get all images from post
+	 * @param  integer $id --- post id
+	 * @return array --- images post
+	 */
+	public function getImages($id)
+	{
+		$attachments = array();
+		$args = array(
+			'post_type'   => 'attachment',
+			'numberposts' => -1,
+			'post_status' => null,
+			'post_parent' => $id,
+			'orderby'     => 'post_date',
+			'order'       => 'ASC',
+		);
+
+		$attachments = get_posts( $args );
+		if ( $attachments )
+		{
+			foreach ( $attachments as &$attachment )
+			{
+				$tmp = wp_get_attachment_image_src($attachment->ID, 'thumbnail');
+				$tmp_full = wp_get_attachment_image_src($attachment->ID, 'full');
+
+				if($tmp[0])
+				{
+					$attachment->image = $tmp[0];
+					$attachment->image_full = $tmp_full[0];
+				}  
+			}
+		}
+		return $attachments;
 	}
 
 	public static function getAdditionalLogos($product_id)
