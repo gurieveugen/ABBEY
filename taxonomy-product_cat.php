@@ -1,8 +1,12 @@
 <?php 
-$qo         = get_queried_object();
-$field_img  = Taxonomy::getOptionName($qo->term_id, 'product_cat_background_image');
-$field_show = Taxonomy::getOptionName($qo->term_id, 'product_cat_show_logos_box');
-$image      = (string) get_option($field_img);
+$qo                      = get_queried_object();
+$field_img               = Taxonomy::getOptionName($qo->term_id, 'product_cat_background_image');
+$field_show              = Taxonomy::getOptionName($qo->term_id, 'product_cat_show_logos_box');
+$field_show_testimonials = Taxonomy::getOptionName($qo->term_id, 'product_cat_show_testimonial_box');
+$image                   = (string) get_option($field_img);
+
+$testimonials = get_field('testimonials', 'product_cat_'.$qo->term_id);
+//print_r($testimonials);
 
 get_header(); 
 ?>
@@ -25,9 +29,10 @@ get_header();
 	{
 		echo do_shortcode(
 			sprintf(
-				'[products category="%s" show_logos="%s"][/products]',
+				'[products category="%s" show_logos="%s" show_testimonials="%s"][/products]',
 				$qo->slug,
-				(string) get_option($field_show)
+				(string) get_option($field_show),
+				(string) get_option($field_show_testimonials)
 			)
 		); 
 	}

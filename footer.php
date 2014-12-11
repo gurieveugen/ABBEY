@@ -26,6 +26,7 @@ extract($options);
 			  <li><img src="<?php echo get_template_directory_uri(); ?>/images/visa.png" alt="Visa"></li>
 				<li><img src="<?php echo get_template_directory_uri(); ?>/images/master.png" alt="Mastercard"></li>
 			</ul>
+			<p>Servicing the metro area</p>
 		</div>
 	</footer>
 </div>

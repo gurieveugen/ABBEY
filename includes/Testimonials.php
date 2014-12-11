@@ -13,6 +13,10 @@ class Testimonials{
 	
 	public function getHTML($args = array())
 	{
+		global $testimonials;
+		
+		if(empty($testimonials)){
+		
 		$defaults = array(
 			'posts_per_page'   => 10,
 			'offset'           => 0,
@@ -27,11 +31,14 @@ class Testimonials{
 			'post_mime_type'   => '',
 			'post_parent'      => '',
 			'post_status'      => 'publish',
-			'suppress_filters' => true 
+			'suppress_filters' => true,
+			'wrap_class'       => 'testimonials-list cf'
 		);
 		
 		$args         = array_merge($defaults, (array) $args);
 		$testimonials = get_posts($args);
+		}
+		
 		$result       = array();
 		if(count($testimonials))
 		{
@@ -39,7 +46,7 @@ class Testimonials{
 			{
 				$result[] = $this->wrapTestimonial($testimonial);
 			}
-			return $this->wrapTestimonials(implode('', $result));
+			return $this->wrapTestimonials(implode('', $result), $args['wrap_class']);
 		}
 		return '';
 	}  
@@ -49,11 +56,11 @@ class Testimonials{
 	 * @param  string $testimonials --- testimonials HTML code
 	 * @return string               --- HTML code
 	 */
-	private function wrapTestimonials($testimonials)
+	private function wrapTestimonials($testimonials, $wrap_class)
 	{
 		ob_start();
 		?>
-		<ul class="testimonials-list cf">
+		<ul class="<?php echo $wrap_class; ?>">
 			<?php echo $testimonials; ?>
 		</ul>
 		<?php		

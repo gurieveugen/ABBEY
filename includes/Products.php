@@ -17,9 +17,11 @@ class Products{
 			'category'   => 'commercial',
 			'show_logos' => ''
 		);
-		$atts    = array_merge($defaults, (array) $atts);
-		$is_show = $atts['show_logos'] == 'on';
-		$atts['product_cat'] = $atts['category'];
+		$atts                 = array_merge($defaults, (array) $atts);
+		$is_show              = $atts['show_logos'] == 'on';
+		$is_show_testimonials = $atts['show_testimonials'] == 'on';
+		$atts['product_cat']  = $atts['category'];
+		
 		unset($atts['category']);
 		unset($atts['show_logos']);
 		$args    = array(
@@ -57,10 +59,16 @@ class Products{
 				$result = array_slice($result, 0, 2);
 				$logos  = do_shortcode('[logos]');
 			}
-			
-			$css_class = $this->getPadding($is_show, count($products));
 
-			return $this->wrapProducts(implode('', $result), $term, $css_class, $logos);
+			if($is_show_testimonials)
+			{
+				$testimonials = do_shortcode( '[testimonials wrap_class="testimonials-list-post" posts_per_page="2"]' );
+			}
+			$show = $is_show; 
+			$show = $is_show_testimonials ? true : false;
+			$css_class = $this->getPadding($show, count($products));
+
+			return $this->wrapProducts(implode('', $result), $term, $css_class, $logos.$testimonials);
 		}
 	}
 
@@ -139,26 +147,26 @@ class Products{
 	{
 		$result = array();
 		$fields = array(
-			'first' => 'pl_first_logo',
-			'second' => 'pl_second_logo'
+			'first' => array('pl_first_logo', 'pl_first_logo_link'),
+			'second' =>  array('pl_second_logo', 'pl_second_logo_link')
 		);
-
+	
 		foreach ($fields as $key => $value) 
 		{
 			$result[] = self::getAdditionalLogo($product_id, $value);
 		}
-
 		return $result;
 	}
 
 	public static function getAdditionalLogo($product_id, $field)
 	{
-		$logo = (string) get_post_meta($product_id, $field, true);
+		$logo = (string) get_post_meta($product_id, $field[0], true);
+		$logo_url = (string) get_post_meta($product_id, $field[1], true);
 		if(strlen($logo))
 		{
 			$logo_id   = \__::getAttachmentIDFromSrc($logo);
 			$logo_img = wp_get_attachment_image_src($logo_id, 'thumbnail');
-			if(is_array($logo_img)) return sprintf('<img alt=" " src="%s">', $logo_img[0]);
+			if(is_array($logo_img)) return sprintf('<a href="%s"><img alt=" " src="%s"></a>', $logo_url, $logo_img[0]);
 		}
 		return '';
 	}

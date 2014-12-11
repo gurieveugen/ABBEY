@@ -53,7 +53,7 @@ class Logos{
 	 */
 	private function wrapLogos($logos)
 	{
-		return sprintf('<ul class="logos-bottom">%s</ul>', $logos);
+		return sprintf('<div class="logos-bottom"><h3>STOCKIST OF</h3><ul>%s</ul></div>', $logos);
 	}
 
 	/**

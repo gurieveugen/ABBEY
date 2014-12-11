@@ -631,6 +631,9 @@ $ccolection_product_cat = new ControlsCollection(
 		),
 		new Checkbox(
 			'Show logos box'
+		),
+		new Checkbox(
+			'Show testimonial box'
 		)
 	)
 );
@@ -650,9 +653,19 @@ $ccolection_product = new ControlsCollection(
 		new Media(
 			'First logo'
 		),
+		new Text(
+			'First logo link',
+			array(),
+			array('placeholder' => 'URL')
+		),		
 		new Media(
 			'Second logo'
 		),
+		new Text(
+			'Second logo link',
+			array(),
+			array('placeholder' => 'URL')
+		),			
 		new Checkbox('Show title')
 	)
 );
