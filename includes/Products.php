@@ -127,7 +127,7 @@ class Products{
 					<?php echo $title; ?>
 					<p><?php echo $product->post_content; ?></p>
 					<footer>
-						<a href="/contact" class="btn-enquiry">Make an enquiry</a>
+						<a href="#" class="more">More</a><a href="/contact" class="btn-enquiry">Make an enquiry</a>
 						<?php 
 						if(count($logos))
 						{
@@ -178,6 +178,7 @@ class Products{
 		?>
 		<figure class="img" <?php echo $style; ?>>
 			<a href="<?php echo $image->image_full; ?>" data-lightbox="group" data-title="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
+			  <span>See images</span>
 				<img src="<?php echo $image->image; ?>" alt="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
 			</a>
 		</figure>
