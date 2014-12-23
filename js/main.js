@@ -43,4 +43,25 @@ jQuery(window).load(function() {
 			jQuery(this).hide();
 		});	
 	});
+
+	jQuery('.txt footer a.more').click(function(e){
+		var p = jQuery(this).parent().prev();
+		
+		if(p.css('max-height') == '10000px')
+		{
+			p.css({
+				'max-height' : '106px'
+			});
+			jQuery(this).text('MORE');
+		}
+		else
+		{
+			p.css({
+				'max-height' : '10000px'
+			});
+			jQuery(this).text('CLOSE');
+		}
+
+		e.preventDefault();
+	});
 });

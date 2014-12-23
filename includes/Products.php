@@ -1,6 +1,12 @@
 <?php 
 
 class Products{
+	//                          __              __      
+	//   _________  ____  _____/ /_____ _____  / /______
+	//  / ___/ __ \/ __ \/ ___/ __/ __ `/ __ \/ __/ ___/
+	// / /__/ /_/ / / / (__  ) /_/ /_/ / / / / /_(__  ) 
+	// \___/\____/_/ /_/____/\__/\__,_/_/ /_/\__/____/  
+	const CONTENT_MAX_LENGHT = 442;	                                                 
 	//                    __  __              __    
 	//    ____ ___  ___  / /_/ /_  ____  ____/ /____
 	//   / __ `__ \/ _ \/ __/ __ \/ __ \/ __  / ___/
@@ -127,7 +133,7 @@ class Products{
 					<?php echo $title; ?>
 					<p><?php echo $product->post_content; ?></p>
 					<footer>
-						<a href="#" class="more">More</a><a href="/contact" class="btn-enquiry">Make an enquiry</a>
+						<?php echo $this->getMoreButton($product); ?><a href="/contact" class="btn-enquiry">Make an enquiry</a>
 						<?php 
 						if(count($logos))
 						{
@@ -143,6 +149,20 @@ class Products{
 		$var = ob_get_contents();
 		ob_end_clean();
 		return $var;
+	}
+
+	/**
+	 * Get more button
+	 * @param  object $p --- post object
+	 * @return string
+	 */
+	private function getMoreButton($p)
+	{
+		if(strlen($p->post_content) > self::CONTENT_MAX_LENGHT)
+		{
+			return '<a href="#" class="more">More</a>';
+		}
+		return '';
 	}
 
 	/**
@@ -206,6 +226,8 @@ class Products{
 			'order'       => 'ASC',
 		);
 
+		$thumb_id = get_post_thumbnail_id( $id );
+		$res = array();
 		$attachments = get_posts( $args );
 		if ( $attachments )
 		{
@@ -214,14 +236,26 @@ class Products{
 				$tmp = wp_get_attachment_image_src($attachment->ID, 'thumbnail');
 				$tmp_full = wp_get_attachment_image_src($attachment->ID, 'full');
 
-				if($tmp[0])
-				{
-					$attachment->image = $tmp[0];
-					$attachment->image_full = $tmp_full[0];
-				}  
+				if(!$tmp[0]) continue;
+				
+				$attachment->image = $tmp[0];
+				$attachment->image_full = $tmp_full[0];
+				array_push($res, $attachment);	
 			}
 		}
-		return $attachments;
+
+		$thumb = get_post( $thumb_id );
+		
+		if($thumb !== null)
+		{
+			$tmp = wp_get_attachment_image_src($thumb->ID, 'thumbnail');
+			$tmp_full = wp_get_attachment_image_src($thumb->ID, 'full');
+			$thumb->image = $tmp[0];
+			$thumb->image_full = $tmp_full[0];
+			array_unshift($res, $thumb);
+		}
+
+		return $res;
 	}
 
 	public static function getAdditionalLogos($product_id)

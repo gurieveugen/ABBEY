@@ -90,7 +90,7 @@ class Testimonials{
 				<h3><?php echo $testimonial->post_title; ?></h3>
 			</div>
 			<div class="txt">
-				<p>“<?php echo $testimonial->post_content; ?>”</p>
+				<p><?php echo $testimonial->post_content; ?></p>
 			</div>
 		</li>
 		<?php
