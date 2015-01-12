@@ -127,7 +127,7 @@ class Products{
 		<li>
 			<article class="cf">
 				<?php
-				echo $this->wrapImages($images);
+				echo $this->wrapImages($images, $product->ID);
 				?>
 				<div class="txt">
 					<?php echo $title; ?>
@@ -170,16 +170,23 @@ class Products{
 	 * @param  array $images --- image objects
 	 * @return string --- HTML code
 	 */
-	public function wrapImages($images)
+	public function wrapImages($images, $post_id)
 	{
 		$first  = true;
 		$result = array();
 		if(is_array($images) && count($images))
 		{
-			foreach ($images as $img) 
+			if(count($images) > 1)
 			{
-				array_push($result, $this->wrapImage($img, !$first));
-				$first = false;
+				foreach ($images as $img) 
+				{
+					array_push($result, $this->wrapImage($img, !$first, $post_id));
+					$first = false;
+				}	
+			}
+			else
+			{
+				array_push($result, $this->wrapOneImage($images[0], $post_id));
 			}
 		}
 		return implode('', $result);
@@ -191,16 +198,35 @@ class Products{
 	 * @param  boolean $hide  --- hide or no
 	 * @return string --- HTML code
 	 */
-	public function wrapImage($image, $hide)
+	public function wrapImage($image, $hide, $post_id)
 	{
 		$style = ($hide) ? 'style="display: none;"' : '';
 		ob_start();
 		?>
 		<figure class="img" <?php echo $style; ?>>
-			<a href="<?php echo $image->image_full; ?>" data-lightbox="group" data-title="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
+			<a href="<?php echo $image['image_full']; ?>" data-lightbox="group<?php echo $post_id; ?>" data-title="<?php echo esc_attr( strip_tags($image['title'])); ?>">
 			  <span>See images</span>
-				<img src="<?php echo $image->image; ?>" alt="<?php echo esc_attr( strip_tags($image->post_title)); ?>">
+				<img src="<?php echo $image['image_thumb']; ?>" alt="<?php echo esc_attr( strip_tags($image['title'])); ?>">
 			</a>
+		</figure>
+		<?php
+		
+		$var = ob_get_contents();
+		ob_end_clean();
+		return $var;
+	}
+
+	/**
+	 * Wrap image post to HTML code
+	 * @param  object $image --- post object with image and image_full field
+	 * @return string --- HTML code
+	 */
+	public function wrapOneImage($image, $post_id)
+	{
+		ob_start();
+		?>
+		<figure class="img">
+			<img src="<?php echo $image['image_thumb']; ?>" alt="<?php echo esc_attr( strip_tags($image['title'])); ?>">
 		</figure>
 		<?php
 		
@@ -217,29 +243,21 @@ class Products{
 	public function getImages($id)
 	{
 		$attachments = array();
-		$args = array(
-			'post_type'   => 'attachment',
-			'numberposts' => -1,
-			'post_status' => null,
-			'post_parent' => $id,
-			'orderby'     => 'post_date',
-			'order'       => 'ASC',
-		);
 
 		$thumb_id = get_post_thumbnail_id( $id );
 		$res = array();
-		$attachments = get_posts( $args );
+		$attachments = get_field('images', $id);
 		if ( $attachments )
 		{
 			foreach ( $attachments as &$attachment )
 			{
-				$tmp = wp_get_attachment_image_src($attachment->ID, 'thumbnail');
-				$tmp_full = wp_get_attachment_image_src($attachment->ID, 'full');
+				$tmp = wp_get_attachment_image_src($attachment['image'], 'thumbnail');
+				$tmp_full = wp_get_attachment_image_src($attachment['image'], 'full');
 
 				if(!$tmp[0]) continue;
 				
-				$attachment->image = $tmp[0];
-				$attachment->image_full = $tmp_full[0];
+				$attachment['image_thumb'] = $tmp[0];
+				$attachment['image_full'] = $tmp_full[0];
 				array_push($res, $attachment);	
 			}
 		}
@@ -250,9 +268,12 @@ class Products{
 		{
 			$tmp = wp_get_attachment_image_src($thumb->ID, 'thumbnail');
 			$tmp_full = wp_get_attachment_image_src($thumb->ID, 'full');
-			$thumb->image = $tmp[0];
-			$thumb->image_full = $tmp_full[0];
-			array_unshift($res, $thumb);
+
+			$new_thumb['image_thumb'] = $tmp[0];
+			$new_thumb['image_full']  = $tmp_full[0];
+			$new_thumb['title']       = $thumb->post_title;
+			$new_thumb['image']       = $thumb->ID;
+			array_unshift($res, $new_thumb);
 		}
 
 		return $res;
